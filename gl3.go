@@ -65,3 +65,20 @@ const (
   StencilBufferBit AttribMask = 0x00000400
   ColorBufferBit   AttribMask = 0x00004000
 )
+
+func GetError() ErrorCode {
+  return ErrorCode(C.glGetError())
+}
+
+type ErrorCode Enum
+
+const (
+  InvalidEnum ErrorCode = 0x0500 + iota
+  InvalidValue
+  InvalidOperation
+  _
+  _
+  OutOfMemory
+  InvalidFramebufferOperation
+  NoError ErrorCode = 0
+)

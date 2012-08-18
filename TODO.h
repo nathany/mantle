@@ -105,12 +105,6 @@ typedef void GLvoid;
 #define GL_LEFT                           0x0406
 #define GL_RIGHT                          0x0407
 #define GL_FRONT_AND_BACK                 0x0408
-/* ErrorCode */
-#define GL_NO_ERROR                       0
-#define GL_INVALID_ENUM                   0x0500
-#define GL_INVALID_VALUE                  0x0501
-#define GL_INVALID_OPERATION              0x0502
-#define GL_OUT_OF_MEMORY                  0x0505
 /* FrontFaceDirection */
 #define GL_CW                             0x0900
 #define GL_CCW                            0x0901
@@ -656,7 +650,6 @@ typedef void GLvoid;
 /* reuse GL_DEPTH32F_STENCIL8 */
 /* reuse GL_FLOAT_32_UNSIGNED_INT_24_8_REV */
 /* Reuse tokens from ARB_framebuffer_object */
-/* reuse GL_INVALID_FRAMEBUFFER_OPERATION */
 /* reuse GL_FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING */
 /* reuse GL_FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE */
 /* reuse GL_FRAMEBUFFER_ATTACHMENT_RED_SIZE */
@@ -924,7 +917,6 @@ typedef void GLvoid;
 #endif
 
 #ifndef GL_ARB_framebuffer_object
-#define GL_INVALID_FRAMEBUFFER_OPERATION  0x0506
 #define GL_FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING 0x8210
 #define GL_FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE 0x8211
 #define GL_FRAMEBUFFER_ATTACHMENT_RED_SIZE 0x8212
@@ -1231,7 +1223,6 @@ GLAPI void APIENTRY glReadBuffer (GLenum mode);
 GLAPI void APIENTRY glReadPixels (GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, GLvoid *pixels);
 GLAPI void APIENTRY glGetBooleanv (GLenum pname, GLboolean *params);
 GLAPI void APIENTRY glGetDoublev (GLenum pname, GLdouble *params);
-GLAPI GLenum APIENTRY glGetError (void);
 GLAPI void APIENTRY glGetFloatv (GLenum pname, GLfloat *params);
 GLAPI void APIENTRY glGetIntegerv (GLenum pname, GLint *params);
 GLAPI const GLubyte * APIENTRY glGetString (GLenum name);
@@ -1280,7 +1271,6 @@ typedef void (APIENTRYP PFNGLREADBUFFERPROC) (GLenum mode);
 typedef void (APIENTRYP PFNGLREADPIXELSPROC) (GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, GLvoid *pixels);
 typedef void (APIENTRYP PFNGLGETBOOLEANVPROC) (GLenum pname, GLboolean *params);
 typedef void (APIENTRYP PFNGLGETDOUBLEVPROC) (GLenum pname, GLdouble *params);
-typedef GLenum (APIENTRYP PFNGLGETERRORPROC) (void);
 typedef void (APIENTRYP PFNGLGETFLOATVPROC) (GLenum pname, GLfloat *params);
 typedef void (APIENTRYP PFNGLGETINTEGERVPROC) (GLenum pname, GLint *params);
 typedef const GLubyte * (APIENTRYP PFNGLGETSTRINGPROC) (GLenum name);
