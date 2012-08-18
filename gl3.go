@@ -8,6 +8,11 @@ package gl3
 import "C"
 import "unsafe"
 
+const (
+  TRUE  = 1
+  FALSE = 0
+)
+
 type (
   Enum     C.GLenum
   Boolean  C.GLboolean
