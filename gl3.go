@@ -17,6 +17,14 @@ const (
   FALSE = 0
 )
 
+// btou converts a bool to a 0/1 value.
+func Btou(b bool) uint8 {
+  if b {
+    return 1
+  }
+  return 0
+}
+
 type (
   Enum     C.GLenum
   Boolean  C.GLboolean
