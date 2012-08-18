@@ -1,99 +1,40 @@
-#ifndef __gl3_h_
-#define __gl3_h_
-
-#if defined __gl_h_ && !(defined GL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED)
-#warning gl.h and gl3.h are both included.  Compiler will not invoke errors if using removed OpenGL functionality.
-#endif
-
-#ifdef _CGLMACRO_H
-#error Can not include both gl3.h and CGLMacro.h simultaneously
-#endif
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /*
-** Copyright (c) 2007-2010 The Khronos Group Inc.
-**
-** Permission is hereby granted, free of charge, to any person obtaining a
-** copy of this software and/or associated documentation files (the
-** "Materials"), to deal in the Materials without restriction, including
-** without limitation the rights to use, copy, modify, merge, publish,
-** distribute, sublicense, and/or sell copies of the Materials, and to
-** permit persons to whom the Materials are furnished to do so, subject to
-** the following conditions:
-**
-** The above copyright notice and this permission notice shall be included
-** in all copies or substantial portions of the Materials.
-**
-** THE MATERIALS ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-** EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-** MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-** IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-** CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-** TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-** MATERIALS OR THE USE OR OTHER DEALINGS IN THE MATERIALS.
+ * This is a copy of the gl3.h header file from OS X Mountain Lion, located at:
+ *
+ *   /System/Library/Frameworks/OpenGL.framework/Headers/gl3.h
+ *
+ * The latest version of this header is available from the OpenGL registry:
+ *
+ *   http://www.opengl.org/registry/api/gl3.h
+ *
+ * As I implement functionality in the binding, I'll remove lines from here. This way I'll
+ * always have a list of what else I could look at implementing!
+ *
+ * Once this is done, I may want to look at Apple's gl3ext.h. :-)
 */
 
-/* This is a draft release of gl3.h, a header for use with OpenGL 3.1, and
- * 3.2 and later core profile implementations. The current version is
- * available at http://www.opengl.org/registry/ . Please don't package
- * gl3.h for release with other software until it's out of draft status.
+/*
+ * Copyright (c) 2007-2010 The Khronos Group Inc.
+ *
+ * This is a draft release of gl3.h, a header for use with OpenGL 3.1, and
+ * 3.2 and later core profile implementations.
+ *
  * The structure of the file may change significantly, and the details
  * will probably change slightly as we make sure exactly the right set
  * of interfaces is included.
  *
  * gl3.h last updated on $Date: 2010/12/14 02:44:48 $
- *
- * RELEASE NOTES - 2010/03/11
- *
- * gl3.h should be placed under a directory 'GL3' and included as
- * '<GL3/gl3.h>'.
- *
- * gl3.h only includes interfaces supported in a OpenGL 3.1 (without
- * GL_ARB_compatibility) or OpenGL 3.2 or later core profile
- * implementation, as well as interfaces for newer ARB extensions which
- * can be supported by the core profile. It does not, and never will
- * include functionality removed from the core profile, such as
- * fixed-function vertex and fragment processing.
- *
- * Implementations of OpenGL 3.1 supporting the optional
- * GL_ARB_compatibility extension continue to provide that functionality,
- * as do implementations of the OpenGL 3.2+ compatibility profiles, and
- * source code requiring it should use the traditional <GL/gl.h> and
- * <GL/glext.h> headers instead of <GL3/gl3.h>.
- *
- * It is not possible to #include both <GL3/gl3.h> and either of
- * <GL/gl.h> or <GL/glext.h> in the same source file.
- *
- * We welcome feedback on gl3.h. Please register for the Khronos Bugzilla
- * (www.khronos.org/bugzilla) and file issues there under product
- * "OpenGL", category "Registry". Feedback on the opengl.org forums
- * may not be responded to in a timely fashion.
  */
 
 /* Function declaration macros - to move into glplatform.h */
-
-#if defined(_WIN32) && !defined(APIENTRY) && !defined(__CYGWIN__) && !defined(__SCITECH_SNAP__)
-#define WIN32_LEAN_AND_MEAN 1
-#include <windows.h>
-#endif
-
 
 #if defined(__APPLE__)
 #define GL3_PROTOTYPES
 #endif
 
-#ifndef APIENTRY
 #define APIENTRY
-#endif
-#ifndef APIENTRYP
 #define APIENTRYP APIENTRY *
-#endif
-#ifndef GLAPI
 #define GLAPI extern
-#endif
 
 /* Base GL types */
 
@@ -2056,8 +1997,3 @@ typedef void (APIENTRYP PFNGLSAMPLEMASKIPROC) (GLuint index, GLbitfield mask);
 #define GL_ARB_vertex_array_bgra 1
 #endif
 
-#ifdef __cplusplus
-}
-#endif
-
-#endif
