@@ -30,7 +30,7 @@ While OpenGL on Windows requires extensions to access a modern version of OpenGL
 
 Books:
 
-* [OpenGL SuperBible](http://www.starstonesoftware.com/OpenGL/), 5th ed. covers OpenGL 3.3 ([http://code.google.com/p/oglsuperbible5/](GLTools))
+* [OpenGL SuperBible](http://www.starstonesoftware.com/OpenGL/), 5th ed. covers OpenGL 3.3 ([GLTools](http://code.google.com/p/oglsuperbible5/))
 * [OpenGL Shading Language](http://www.amazon.com/OpenGL-Shading-Language-Edition-ebook/dp/B002HMJYC4/), 3rd ed. covers GLSL 1.4
 * [3D Math Primer for Graphics and Game Development](http://www.amazon.com/Graphics-Development-Wordware-Library-ebook/dp/B0026A6CJ0/)
 * [Texturing and Modeling](http://www.amazon.com/Texturing-Modeling-Third-Edition-Procedural/dp/1558608486/), 3rd ed. for more shader ideas.
@@ -42,5 +42,5 @@ Online:
 
 Also of interest:
 
-* [crunch](http://code.google.com/p/crunch/): Advanced DXT texture compression and real-time transcoding library (C++)
+* [crunch](http://code.google.com/p/crunch/), Advanced DXT texture compression and real-time transcoding library (C++)
 
