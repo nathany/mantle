@@ -19,6 +19,8 @@ func main() {
 
   for glfw.WindowParam(glfw.Opened) == 1 {
     // do gl3 stuff
+    gl3.Clear(gl3.ColorBufferBit)
+
     glfw.SwapBuffers()
   }
 }
