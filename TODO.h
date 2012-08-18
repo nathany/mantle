@@ -61,10 +61,6 @@ typedef void GLvoid;
 /*************************************************************/
 
 #ifndef GL_VERSION_1_1
-/* AttribMask */
-#define GL_DEPTH_BUFFER_BIT               0x00000100
-#define GL_STENCIL_BUFFER_BIT             0x00000400
-#define GL_COLOR_BUFFER_BIT               0x00004000
 /* Boolean */
 #define GL_FALSE                          0
 #define GL_TRUE                           1
@@ -1214,7 +1210,6 @@ GLAPI void APIENTRY glTexParameteriv (GLenum target, GLenum pname, const GLint *
 GLAPI void APIENTRY glTexImage1D (GLenum target, GLint level, GLint internalformat, GLsizei width, GLint border, GLenum format, GLenum type, const GLvoid *pixels);
 GLAPI void APIENTRY glTexImage2D (GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *pixels);
 GLAPI void APIENTRY glDrawBuffer (GLenum mode);
-GLAPI void APIENTRY glClear (GLbitfield mask);
 GLAPI void APIENTRY glClearColor (GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha);
 GLAPI void APIENTRY glClearStencil (GLint s);
 GLAPI void APIENTRY glClearDepth (GLclampd depth);
