@@ -2,9 +2,7 @@ package gl3
 
 /* #cgo darwin LDFLAGS: -framework OpenGL
 
-   #if defined(__APPLE_CC__)
    #include <OpenGL/gl3.h>
-   #endif
 */
 import "C"
 
@@ -64,21 +62,4 @@ const (
   DepthBufferBit   AttribMask = 0x00000100
   StencilBufferBit AttribMask = 0x00000400
   ColorBufferBit   AttribMask = 0x00004000
-)
-
-func GetError() ErrorCode {
-  return ErrorCode(C.glGetError())
-}
-
-type ErrorCode Enum
-
-const (
-  InvalidEnum ErrorCode = 0x0500 + iota
-  InvalidValue
-  InvalidOperation
-  _
-  _
-  OutOfMemory
-  InvalidFramebufferOperation
-  NoError ErrorCode = 0
 )
