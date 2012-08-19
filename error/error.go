@@ -4,6 +4,7 @@
 package error
 
 import (
+  "fmt"
   "strings"
 )
 
@@ -41,5 +42,5 @@ var errorText = map[ErrorCode]string{
 }
 
 func (e ErrorCode) Error() string {
-  return errorText[e]
+  return fmt.Sprintf("%s (%#x)", errorText[e], int(e))
 }
