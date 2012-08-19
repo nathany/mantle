@@ -1,6 +1,9 @@
-package gl3
+package error
 
-// #include <OpenGL/gl3.h>
+/* #cgo darwin LDFLAGS: -framework OpenGL
+
+   #include <OpenGL/gl3.h>
+*/
 import "C"
 
 import (
@@ -10,14 +13,7 @@ import (
   "strings"
 )
 
-func checkError() {
-  errs := GetErrors()
-  if len(errs) > 0 {
-    LogErrors(errs, 1) // could register a global error delegation function
-  }
-}
-
-type ErrorCode Enum
+type ErrorCode C.GLenum
 
 func getError() ErrorCode {
   return ErrorCode(C.glGetError())

@@ -2,7 +2,7 @@ package main
 
 import (
   "github.com/jteeuwen/glfw"
-  "github.com/nathany/gl3"
+  "github.com/nathany/gl3/gl"
   "log"
 )
 
@@ -19,7 +19,7 @@ func main() {
 
   for glfw.WindowParam(glfw.Opened) == 1 {
     // do gl3 stuff
-    gl3.Clear(gl3.ColorBufferBit)
+    gl.Clear(gl.ColorBufferBit)
 
     glfw.SwapBuffers()
   }
@@ -28,7 +28,7 @@ func main() {
 func openWindow() {
   glfw.OpenWindowHint(glfw.OpenGLVersionMajor, 3)
   glfw.OpenWindowHint(glfw.OpenGLVersionMinor, 2)
-  glfw.OpenWindowHint(glfw.OpenGLForwardCompat, gl3.TRUE)
+  glfw.OpenWindowHint(glfw.OpenGLForwardCompat, gl.TRUE)
   glfw.OpenWindowHint(glfw.OpenGLProfile, glfw.OpenGLCoreProfile)
 
   // width, height, r, g, b, a, depth, stencil, mode
