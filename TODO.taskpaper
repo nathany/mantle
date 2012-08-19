@@ -1,7 +1,7 @@
 - pick a LICENSE
 GL:
 	Clear:
-		- glClearColor
+		- glClearColor @done
 		glClearDepth and glClearStencil aren't really needed yet
 	- get a triangle on the screen
 		shaders/lighting? 
