@@ -35,10 +35,15 @@ Error:
 		- logging to a separate GL log?
 GLFW:
 	Library:
-		- continue reading documentation
+		- read User Manual @done
 		- some deprecation warnings in Clang when building, report?
 	Binding:
 		- test joystick, should need to add IOKit framework
 		- is LockOSThread still necessary on darwin?
 		- static vs. dynamic linking?
 		would like to define GLFW_INCLUDE_GL3 and GLFW_NO_GLU
+	Wrapper:
+		- Window
+		- Input
+		- Timing (or does Go stdlib have an equivalent high resolution timer?)
+		Extensions (ugh)

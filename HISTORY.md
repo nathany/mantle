@@ -5,6 +5,7 @@
 ### 19.
 
 * SetClearColor so now the window can be white instead of black.
+* Planning on an idiomatic Go wrapper, rather than just a straight binding.
 
 ### 18.
 

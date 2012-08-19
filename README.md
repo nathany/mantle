@@ -1,14 +1,19 @@
-# GL3: OpenGL Core Profile binding (WIP)
+# GL3 (WIP)
 
-The plan is to learn OpenGL, GLSL and 3D graphics, while also writing an OpenGL 3.2 Core Profile wrapper/binding in [Go](http://golang.org/).
+Idiomatic [Go](http://golang.org/) wrapper for OpenGL 3.2 Core Profile on OS X.
 
-I intend to tackle OpenGL functions as needed, so that I actually understand what they do, and where they are useful. By [documenting my code](http://golang.org/doc/articles/godoc_documenting_go_code.html), this will hopefully prove helpful for others and my future self.
+As I've been learning OpenGL, I've decided that I want this to be a wrapper that deviates enough to be idomatic in Go, and a little nicer to use.
 
-Alternatives: [GoGL](https://github.com/chsc/gogl) generates bindings, [banthar's gl](https://github.com/banthar/gl) is hand-written.
+At the same time, I'd like this to be moderately performant, so it may not always be practical to follow "the Go Way" (eg. checking for errors after every call would get expensive).
+
+Alternative, more complete bindings:
+
+* [GoGL](https://github.com/chsc/gogl) generated bindings
+* [banthar's gl](https://github.com/banthar/gl) is hand-written
 
 ## Target
 
-As my goal is learning 3D Graphics, I'm not going to worry about cross-platform support for the foreseeable future.
+As my goal is to learn OpenGL, GLSL and 3D graphics, this package won't concern itself with cross-platform support for the foreseeable future.
 
 * Mac OS X 10.8 (though it should work on 10.7 as well)
 * OpenGL 3.2 and GLSL 1.5
@@ -17,6 +22,7 @@ As my goal is learning 3D Graphics, I'm not going to worry about cross-platform 
 * Testing with Intel HD Graphics 4000 or Radeon HD 4870
 
 Thankfully OS X appears to have a [fairly consistient story](https://developer.apple.com/graphicsimaging/opengl/capabilities/) for OpenGL.
+
 
 ## Dependencies
 
