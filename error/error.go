@@ -10,26 +10,35 @@ import (
   "strings"
 )
 
-// "glGetError should always be called in a loop, until it returns GL_NO_ERROR"
-func GetErrors() (error_codes []ErrorCode) {
-  for code := getError(); code != NoError; code = getError() {
-    error_codes = append(error_codes, code)
-  }
-  return error_codes
+// Error (could be multiple)
+type Error map[ErrorCode]bool
+
+// Log the error
+func (e Error) Log(skip int) {
+  func_name, file_line := callerInfo(skip)
+  log.Printf("GL error %s in function %s\n  %s\n", e, func_name, file_line)
 }
 
-func LogErrors(error_codes []ErrorCode, skip int) {
-  if len(error_codes) > 0 {
-    func_name, file_line := callerInfo(skip)
-
-    var error_strings []string
-    for _, code := range error_codes {
-      error_strings = append(error_strings, code.Error())
-    }
-
-    errors := strings.Join(error_strings, "|")
-    log.Printf("GL error %s in function %s\n  %s\n", errors, func_name, file_line)
+// Error interface
+func (e Error) Error() string {
+  var error_strings []string
+  for code, _ := range e {
+    error_strings = append(error_strings, code.Error())
   }
+  return strings.Join(error_strings, "|")
+}
+
+// Get Error
+func GetError() Error {
+  err := Error{}
+  // "glGetError should always be called in a loop, until it returns GL_NO_ERROR"
+  for code := getError(); code != NoError; code = getError() {
+    err[code] = true
+  }
+  if len(err) > 0 {
+    return err
+  }
+  return nil
 }
 
 func callerInfo(skip int) (func_name, file_line string) {
