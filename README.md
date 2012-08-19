@@ -26,6 +26,8 @@ Based on the [Roadmap](http://wiki.glfw.org/wiki/Roadmap_for_GLFW_3), GLFW seems
 
 While OpenGL on Windows requires extensions to access a modern version of OpenGL, I don't expect I will need [GLEW](http://glew.sourceforge.net/) anytime soon on OS X (though it is also available via Homebrew).
 
+For testing, I'll be making use of [gocheck](http://labix.org/gocheck) ([docs](http://go.pkgdoc.org/launchpad.net/gocheck)).
+
 ## Resources
 
 Books:
@@ -38,6 +40,7 @@ Books:
 Online:
 
 * [OpenGL 3.3 Reference](http://www.opengl.org/sdk/docs/man3/)
+* [OpenGL for Mac OS X](https://developer.apple.com/devcenter/mac/resources/opengl/)
 * [cgo](http://golang.org/doc/articles/c_go_cgo.html) documentation for Go bindings
 
 Also of interest:
