@@ -1202,7 +1202,6 @@ GLAPI void APIENTRY glTexParameteriv (GLenum target, GLenum pname, const GLint *
 GLAPI void APIENTRY glTexImage1D (GLenum target, GLint level, GLint internalformat, GLsizei width, GLint border, GLenum format, GLenum type, const GLvoid *pixels);
 GLAPI void APIENTRY glTexImage2D (GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *pixels);
 GLAPI void APIENTRY glDrawBuffer (GLenum mode);
-GLAPI void APIENTRY glClearColor (GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha);
 GLAPI void APIENTRY glClearStencil (GLint s);
 GLAPI void APIENTRY glClearDepth (GLclampd depth);
 GLAPI void APIENTRY glStencilMask (GLuint mask);
@@ -1250,7 +1249,6 @@ typedef void (APIENTRYP PFNGLTEXIMAGE1DPROC) (GLenum target, GLint level, GLint 
 typedef void (APIENTRYP PFNGLTEXIMAGE2DPROC) (GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *pixels);
 typedef void (APIENTRYP PFNGLDRAWBUFFERPROC) (GLenum mode);
 typedef void (APIENTRYP PFNGLCLEARPROC) (GLbitfield mask);
-typedef void (APIENTRYP PFNGLCLEARCOLORPROC) (GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha);
 typedef void (APIENTRYP PFNGLCLEARSTENCILPROC) (GLint s);
 typedef void (APIENTRYP PFNGLCLEARDEPTHPROC) (GLclampd depth);
 typedef void (APIENTRYP PFNGLSTENCILMASKPROC) (GLuint mask);

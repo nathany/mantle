@@ -15,6 +15,8 @@ func main() {
   openWindow()
   defer glfw.CloseWindow()
 
+  gl.SetClearColor(gl.White)
+
   glfw.SetWindowTitle("Simple GLFW window")
 
   for glfw.WindowParam(glfw.Opened) == 1 {

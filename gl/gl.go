@@ -59,3 +59,12 @@ type (
   Intptr   C.GLintptr
   Sizeiptr C.GLsizeiptr
 )
+
+// Color contains red, green, blue and alpha values between 0.0 and 1.0
+type Color struct {
+  Red, Green, Blue, Alpha Clampf
+}
+
+var (
+  White = Color{1, 1, 1, 0}
+)
