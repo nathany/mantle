@@ -1,0 +1,37 @@
+- pick a LICENSE
+GL:
+	Clear:
+		- glClearColor
+		glClearDepth and glClearStencil aren't really needed yet
+	- get a triangle on the screen
+		shaders/lighting? 
+Error:
+	- write godocs
+		no idiomatic return of errors (they go away in release builds)
+		GetError() should never be called in an inner loop
+	- write tests
+	public API:
+		currently test err[InvalidEnum]
+		new API used by gl package or by user in release mode
+		- populate an Invalid struct on-demand as a public API?
+		- OutOfMemory() check
+			should Out Of Memory be different? panic?
+		- make ErrorCode type/enums private
+	last error?:
+		- instead of debug/release, should it be checked mode? must be enabled
+		will have manual error checking in release mode (initialization, etc.)
+			should these checks be ignored in debug mode?
+			manually calling GetError() won't return anything in debug mode (it was already called via checkError)
+			if not, it would be possible to emulate the GetError behaviour in debug mode (but let's wait and see)
+	onError:
+		should checkError() be configurable in debug mode? (logging or something else)
+		- logging to a GL log?
+GLFW:
+	Library:
+		- continue reading documentation
+		- some deprecation warnings in Clang when building, report?
+	Binding:
+		- test joystick, should need to add IOKit framework
+		- is LockOSThread still necessary on darwin?
+		- static vs. dynamic linking?
+		would like to define GLFW_INCLUDE_GL3 and GLFW_NO_GLU
