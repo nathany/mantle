@@ -4,11 +4,21 @@ package gl3
 import "C"
 
 import (
+  "errors"
   "fmt"
   "log"
   "runtime"
   "strings"
 )
+
+func CheckErrors() error {
+  errs := GetErrors()
+  if len(errs) > 0 {
+    LogErrors(errs, 1) // could register a global error delegation function
+    return errors.New("OpenGL error")
+  }
+  return nil
+}
 
 type ErrorCode Enum
 
@@ -24,17 +34,16 @@ func GetErrors() (error_codes []ErrorCode) {
   return error_codes
 }
 
-func LogErrors() {
-  error_codes := GetErrors()
+func LogErrors(error_codes []ErrorCode, skip int) {
   if len(error_codes) > 0 {
-    func_name, file_line := callerInfo(0)
+    func_name, file_line := callerInfo(skip)
 
     var error_strings []string
     for _, code := range error_codes {
       error_strings = append(error_strings, code.Error())
     }
 
-    errors := strings.Join(error_strings, ", ")
+    errors := strings.Join(error_strings, "|")
     log.Printf("GL error %s in function %s\n  %s\n", errors, func_name, file_line)
   }
 }
