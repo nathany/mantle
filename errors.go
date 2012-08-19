@@ -4,20 +4,17 @@ package gl3
 import "C"
 
 import (
-  "errors"
   "fmt"
   "log"
   "runtime"
   "strings"
 )
 
-func CheckErrors() error {
+func checkError() {
   errs := GetErrors()
   if len(errs) > 0 {
     LogErrors(errs, 1) // could register a global error delegation function
-    return errors.New("OpenGL error")
   }
-  return nil
 }
 
 type ErrorCode Enum

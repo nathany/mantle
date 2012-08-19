@@ -52,9 +52,9 @@ type (
 // glClear sets the bitplane area of the window to values previously selected
 // by glClearColor, glClearDepth, and glClearStencil
 // http://www.opengl.org/sdk/docs/man3/xhtml/glClear.xml
-func Clear(mask AttribMask) error {
+func Clear(mask AttribMask) {
   C.glClear(C.GLbitfield(mask))
-  return CheckErrors()
+  checkError()
 }
 
 type AttribMask Bitfield
