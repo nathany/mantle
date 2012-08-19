@@ -1,10 +1,7 @@
-package error
+/*
 
-/* #cgo darwin LDFLAGS: -framework OpenGL
-
-   #include <OpenGL/gl3.h>
 */
-import "C"
+package error
 
 import (
   "fmt"
@@ -12,12 +9,6 @@ import (
   "runtime"
   "strings"
 )
-
-type ErrorCode C.GLenum
-
-func getError() ErrorCode {
-  return ErrorCode(C.glGetError())
-}
 
 // "glGetError should always be called in a loop, until it returns GL_NO_ERROR"
 func GetErrors() (error_codes []ErrorCode) {
@@ -50,17 +41,6 @@ func callerInfo(skip int) (func_name, file_line string) {
   }
   return func_name, file_line
 }
-
-const (
-  InvalidEnum ErrorCode = 0x0500 + iota
-  InvalidValue
-  InvalidOperation
-  _
-  _
-  OutOfMemory
-  InvalidFramebufferOperation
-  NoError ErrorCode = 0
-)
 
 var errorText = map[ErrorCode]string{
   InvalidEnum:                 "Invalid Enum",
