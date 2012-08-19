@@ -13,6 +13,8 @@ Alternative, more complete bindings:
 * [GoGL](https://github.com/chsc/gogl) generated bindings
 * [banthar's gl](https://github.com/banthar/gl) is hand-written
 
+gl3 is made available under the [Simplified BSD License](http://opensource.org/licenses/bsd-license.php/).
+
 ## Target
 
 As my goal is to learn OpenGL, GLSL and 3D graphics, this package won't concern itself with cross-platform support for the foreseeable future.

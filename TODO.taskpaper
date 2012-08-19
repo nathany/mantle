@@ -1,4 +1,3 @@
-- pick a LICENSE
 GL:
 	Clear:
 		- glClearColor @done
