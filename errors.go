@@ -7,24 +7,40 @@ import (
   "fmt"
   "log"
   "runtime"
+  "strings"
 )
 
 type ErrorCode Enum
 
-func GetError() ErrorCode {
+func getError() ErrorCode {
   return ErrorCode(C.glGetError())
 }
 
 // "glGetError should always be called in a loop, until it returns GL_NO_ERROR"
+func GetErrors() (error_codes []ErrorCode) {
+  for code := getError(); code != NoError; code = getError() {
+    error_codes = append(error_codes, code)
+  }
+  return error_codes
+}
+
 func LogErrors() {
-  func_name, file_line := callerInfo()
-  for code := GetError(); code != NoError; code = GetError() {
-    log.Printf("GL error %s in function %s\n  %s\n", code, func_name, file_line)
+  error_codes := GetErrors()
+  if len(error_codes) > 0 {
+    func_name, file_line := callerInfo(0)
+
+    var error_strings []string
+    for _, code := range error_codes {
+      error_strings = append(error_strings, code.Error())
+    }
+
+    errors := strings.Join(error_strings, ", ")
+    log.Printf("GL error %s in function %s\n  %s\n", errors, func_name, file_line)
   }
 }
 
-func callerInfo() (func_name, file_line string) {
-  if pc, file, line, ok := runtime.Caller(2); ok == true {
+func callerInfo(skip int) (func_name, file_line string) {
+  if pc, file, line, ok := runtime.Caller(skip + 2); ok == true {
     if fun := runtime.FuncForPC(pc); fun != nil {
       func_name = fun.Name()
     }
