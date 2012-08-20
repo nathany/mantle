@@ -2,5 +2,5 @@
 
 package gl
 
-// checkError is ignored in release builds
-func checkError() {}
+// callAfterHook is ignored in release builds
+func callAfterHook() {}

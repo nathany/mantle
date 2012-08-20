@@ -15,7 +15,7 @@ import "C"
 */
 func Clear(mask AttribMask) {
   C.glClear(C.GLbitfield(mask))
-  checkError()
+  callAfterHook()
 }
 
 type AttribMask Bitfield
@@ -36,5 +36,5 @@ const (
 */
 func SetClearColor(c Color) {
   C.glClearColor(C.GLclampf(c.Red), C.GLclampf(c.Green), C.GLclampf(c.Blue), C.GLclampf(c.Alpha))
-  checkError() // note: documentation doesn't specify any possible errors
+  callAfterHook()
 }

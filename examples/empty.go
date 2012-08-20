@@ -3,6 +3,7 @@ package main
 import (
   "github.com/jteeuwen/glfw"
   "github.com/nathany/mantle/core/gl"
+  "github.com/nathany/mantle/error"
   "log"
 )
 
@@ -15,7 +16,9 @@ func main() {
   openWindow()
   defer glfw.CloseWindow()
 
-  gl.SetClearColor(gl.White)
+  gl.SetClearColor(gl.Color{0, 1, 0, 0.5})
+
+  gl.SetAfterHook(error.ErrorHandler)
 
   glfw.SetWindowTitle("Mantle")
 

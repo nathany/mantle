@@ -1,14 +1,11 @@
-package error
+package gl
 
-/* #cgo darwin LDFLAGS: -framework OpenGL
-
-   #include <OpenGL/gl3.h>
-*/
+// #include <OpenGL/gl3.h>
 import "C"
 
 type ErrorCode C.GLenum
 
-func getError() ErrorCode {
+func Error() ErrorCode {
   return ErrorCode(C.glGetError())
 }
 
