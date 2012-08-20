@@ -1,7 +1,8 @@
 // go test github.com/nathany/mantle/gfx
-package gfx
+package gfx_test
 
 import (
+  "github.com/nathany/mantle/gfx"
   . "launchpad.net/gocheck"
   "testing"
 )
@@ -15,6 +16,7 @@ type S struct{}
 
 var _ = Suite(&S{})
 
-func (s *S) TestHelloWorld(c *C) {
-  c.Check(42, Equals, "42")
+func (s *S) TestErrorCodeToString(c *C) {
+  str := gfx.ErrorCodeToString(0x500)
+  c.Check(str, Equals, "Invalid Enum (0x500)")
 }
