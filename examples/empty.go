@@ -2,7 +2,7 @@ package main
 
 import (
   "github.com/jteeuwen/glfw"
-  "github.com/nathany/mantle/gl"
+  "github.com/nathany/mantle/core/gl"
   "log"
 )
 
@@ -17,7 +17,7 @@ func main() {
 
   gl.SetClearColor(gl.White)
 
-  glfw.SetWindowTitle("Simple GLFW window")
+  glfw.SetWindowTitle("Mantle")
 
   for glfw.WindowParam(glfw.Opened) == 1 {
     gl.Clear(gl.ColorBufferBit)

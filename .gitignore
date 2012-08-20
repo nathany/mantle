@@ -1,7 +1,5 @@
-*
-!*.go
-!*.md
-!LICENSE
+.DS_Store
+TODO.*
+*.sublime*
 
-
-
+empty
