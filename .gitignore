@@ -1,2 +1,7 @@
-.DS_Store
-*.sublime-workspace
+*
+!*.go
+!*.md
+!LICENSE
+
+
+
