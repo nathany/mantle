@@ -1,4 +1,4 @@
-package gl3
+package mantle
 
 import (
   . "launchpad.net/gocheck"

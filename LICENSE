@@ -1,4 +1,4 @@
-gl3 - Idiomatic Go wrapper for OpenGL 3.2 Core Profile
+Mantle - Idiomatic Go wrapper for OpenGL Core Profile
 
 Copyright (c) 2012, Nathan Youngman
 All rights reserved.

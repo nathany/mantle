@@ -1,6 +1,6 @@
-# GL3 (WIP)
+# Mantle (WIP)
 
-Idiomatic [Go](http://golang.org/) wrapper for OpenGL 3.2 Core Profile on OS X.
+Mantle is an idiomatic [Go](http://golang.org/) wrapper for OpenGL 3.2 Core Profile on OS X.
 
 As I've been learning OpenGL, I've decided that I want this to be a wrapper that deviates enough to be idomatic in Go, and a little nicer to use.
 
@@ -13,7 +13,7 @@ Alternative, more complete bindings:
 * [GoGL](https://github.com/chsc/gogl) generated bindings
 * [banthar's gl](https://github.com/banthar/gl) is hand-written
 
-gl3 is made available under the [Simplified BSD License](http://opensource.org/licenses/bsd-license.php/).
+mantle is made available under the [Simplified BSD License](http://opensource.org/licenses/bsd-license.php/).
 
 ## Target
 
@@ -21,7 +21,7 @@ As my goal is to learn OpenGL, GLSL and 3D graphics, this package won't concern 
 
 * Mac OS X 10.8 (though it should work on 10.7 as well)
 * OpenGL 3.2 and GLSL 1.5
-* Only supporting the Core Profile (gl3.h).
+* Only supporting the Core Profile
 * 64-bit only binaries
 * Testing with Intel HD Graphics 4000 or Radeon HD 4870
 

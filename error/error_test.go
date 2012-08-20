@@ -1,4 +1,4 @@
-// go test github.com/nathany/gl3/error
+// go test github.com/nathany/mantle/error
 package error
 
 import (

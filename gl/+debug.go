@@ -4,7 +4,7 @@ package gl
 
 import (
   "fmt"
-  "github.com/nathany/gl3/error"
+  "github.com/nathany/mantle/error"
   "log"
   "path"
   "runtime"
