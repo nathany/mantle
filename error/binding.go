@@ -16,9 +16,10 @@ const (
   InvalidEnum ErrorCode = 0x0500 + iota
   InvalidValue
   InvalidOperation
-  _
-  _
+  StackOverflow  // defined in a later verison (glcoreab)
+  StackUnderflow // defined in a later verison (glcoreab)
   OutOfMemory
   InvalidFramebufferOperation
+
   NoError ErrorCode = 0
 )
