@@ -3,9 +3,13 @@ package main
 import (
   "github.com/jteeuwen/glfw"
   "github.com/nathany/mantle/core/gl"
-  "github.com/nathany/mantle/error"
+  "github.com/nathany/mantle/gfx"
   "log"
 )
+
+func init() {
+  gl.SetAfterHook(gfx.ErrorHandler)
+}
 
 func main() {
   if err := glfw.Init(); err != nil {
@@ -15,12 +19,9 @@ func main() {
 
   openWindow()
   defer glfw.CloseWindow()
+  glfw.SetWindowTitle("Mantle")
 
   gl.SetClearColor(gl.Color{0, 1, 0, 0.5})
-
-  gl.SetAfterHook(error.ErrorHandler)
-
-  glfw.SetWindowTitle("Mantle")
 
   for glfw.WindowParam(glfw.Opened) == 1 {
     gl.Clear(gl.ColorBufferBit)

@@ -1,5 +1,5 @@
-// go test github.com/nathany/mantle/error
-package error
+// go test github.com/nathany/mantle/gfx
+package gfx
 
 import (
   . "launchpad.net/gocheck"

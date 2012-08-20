@@ -1,7 +1,4 @@
-/*
-
-*/
-package error
+package gfx
 
 import (
   "fmt"
