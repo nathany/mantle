@@ -19,7 +19,7 @@ func init() {
 func setupRC() {
   gl.SetClearColor(gfx.Blue)
 
-  // shaderManager.InitializeStockShaders()
+  gfx.InitializeStockShaders()
 
   vertices := []float32{
     -0.5, 0.0, 0.0,
