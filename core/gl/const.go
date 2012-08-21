@@ -13,7 +13,7 @@ const (
 )
 
 type (
-  Enum     C.GLenum
+  Enum     C.GLenum // uint
   Boolean  C.GLboolean
   Bitfield C.GLbitfield
   Byte     C.GLbyte
@@ -30,18 +30,14 @@ type (
   Clampd   C.GLclampd
   Char     C.GLchar
   Pointer  unsafe.Pointer
-  Sync     C.GLsync
+  Sync     C.GLsync // pointer
   Int64    C.GLint64
   Uint64   C.GLuint64
   Intptr   C.GLintptr
-  Sizeiptr C.GLsizeiptr
+  Sizeiptr C.GLsizeiptr // long
 )
 
 // Color contains red, green, blue and alpha values between 0.0 and 1.0
 type Color struct {
   Red, Green, Blue, Alpha Clampf
 }
-
-var (
-  White = Color{1, 1, 1, 0}
-)
