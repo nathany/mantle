@@ -22,7 +22,7 @@ func main() {
   glfw.SetWindowTitle("Mantle")
   glfw.SetWindowSizeCallback(onResize)
 
-  gl.SetClearColor(gfx.Blue, 1.0)
+  gl.SetClearColor(gfx.Blue)
 
   for glfw.WindowParam(glfw.Opened) == 1 {
     gl.Clear(gl.ColorBufferBit)

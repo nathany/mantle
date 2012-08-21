@@ -17,7 +17,7 @@ func init() {
 
 // setup rendering context
 func setupRC() {
-  gl.SetClearColor(gfx.Blue, 1.0)
+  gl.SetClearColor(gfx.Blue)
 
   // shaderManager.InitializeStockShaders()
 

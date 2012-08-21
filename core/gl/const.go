@@ -37,9 +37,11 @@ type (
   Sizeiptr C.GLsizeiptr // long
 )
 
-// Color contains red, green, blue values between 0.0 and 1.0
+// Color contains red, green, blue values between 0.0 and 1.0.
 type Color struct {
   Red, Green, Blue Clampf
+  Alpha
 }
 
+// Alpha can be fully transparent (0.0) to fully opaque (1.0).
 type Alpha Clampf
