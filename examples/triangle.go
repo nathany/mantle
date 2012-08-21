@@ -21,15 +21,15 @@ func setupRC() {
 
   // shaderManager.InitializeStockShaders()
 
-  vVerts := []float32{
+  vertices := []float32{
     -0.5, 0.0, 0.0,
     0.5, 0.0, 0.0,
     0.0, 0.5, 0.0}
 
-  fmt.Println(vVerts)
+  fmt.Println(vertices)
 
   // triangleBatch.Begin(GL_TRIANGLES, 3)
-  // triangleBatch.CopyVertexData3f(vVerts)
+  // triangleBatch.CopyVertexData3f(vertices)
   // triangleBatch.End()
 }
 
@@ -71,4 +71,5 @@ func openWindow() {
 
 func onResize(w, h int) {
   gl.SetViewPort(0, 0, w, h)
+  renderScene()
 }

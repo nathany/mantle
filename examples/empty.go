@@ -11,6 +11,11 @@ func init() {
   gl.SetAfterHook(gfx.ErrorHandler)
 }
 
+func renderScene() {
+  gl.Clear(gl.ColorBufferBit)
+  glfw.SwapBuffers()
+}
+
 func main() {
   if err := glfw.Init(); err != nil {
     log.Fatal(err)
@@ -25,9 +30,7 @@ func main() {
   gl.SetClearColor(gfx.Blue)
 
   for glfw.WindowParam(glfw.Opened) == 1 {
-    gl.Clear(gl.ColorBufferBit)
-
-    glfw.SwapBuffers()
+    renderScene()
   }
 }
 
@@ -45,6 +48,5 @@ func openWindow() {
 
 func onResize(w, h int) {
   gl.SetViewPort(0, 0, w, h)
-  // gl.Clear(gl.ColorBufferBit)
-  // fmt.Printf("resized: %dx%d\n", w, h)
+  renderScene()
 }
