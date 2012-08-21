@@ -21,7 +21,7 @@ func main() {
   defer glfw.CloseWindow()
   glfw.SetWindowTitle("Mantle")
 
-  gl.SetClearColor(gl.Color{0, 1, 0, 0.5})
+  gl.SetClearColor(gfx.Blue, 1.0)
 
   for glfw.WindowParam(glfw.Opened) == 1 {
     gl.Clear(gl.ColorBufferBit)
