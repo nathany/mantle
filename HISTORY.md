@@ -2,11 +2,15 @@
 
 ## August 2012
 
+### 21.
+
+* Determined the 25 additional OpenGL functions needed to draw a triangle.
+
 ### 20.
 
 * Mantle is the name.
 * Refactored into core/gl and gfx packages.
-* Moved error handling to wrapper via gl.SetAfterHook()
+* Moved error handling to gfx wrapper via gl.SetAfterHook()
 
 ### 19.
 

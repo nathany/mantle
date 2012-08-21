@@ -36,6 +36,7 @@ func setupRC() {
 func renderScene() {
   gl.Clear(gl.ColorBufferBit)
   // shaderManager.UseStockShader(GLT_SHADER_IDENTITY, gfx.Red)
+  // triangleBatch.Draw()
   glfw.SwapBuffers()
 }
 
