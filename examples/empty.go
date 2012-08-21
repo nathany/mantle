@@ -20,6 +20,7 @@ func main() {
   openWindow()
   defer glfw.CloseWindow()
   glfw.SetWindowTitle("Mantle")
+  glfw.SetWindowSizeCallback(onResize)
 
   gl.SetClearColor(gfx.Blue, 1.0)
 
@@ -40,4 +41,10 @@ func openWindow() {
   if err := glfw.OpenWindow(640, 480, 8, 8, 8, 0, 0, 0, glfw.Windowed); err != nil {
     log.Fatal(err)
   }
+}
+
+func onResize(w, h int) {
+  gl.SetViewPort(0, 0, w, h)
+  // gl.Clear(gl.ColorBufferBit)
+  // fmt.Printf("resized: %dx%d\n", w, h)
 }
