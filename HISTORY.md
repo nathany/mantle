@@ -5,6 +5,8 @@
 ### 20.
 
 * Mantle is the name.
+* Refactored into core/gl and gfx packages.
+* Moved error handling to wrapper via gl.SetAfterHook()
 
 ### 19.
 
