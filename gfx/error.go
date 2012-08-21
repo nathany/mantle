@@ -38,7 +38,7 @@ type Error map[gl.ErrorCode]bool
 func (e Error) Error() string {
   var error_strings []string
   for code, _ := range e {
-    error_strings = append(error_strings, ErrorCodeToString(code))
+    error_strings = append(error_strings, code.Error())
   }
   return strings.Join(error_strings, "|")
 }
@@ -54,16 +54,4 @@ func GetError() Error {
     return err
   }
   return nil
-}
-
-var errorText = map[gl.ErrorCode]string{
-  gl.InvalidEnum:                 "Invalid Enum",
-  gl.InvalidValue:                "Invalid Value",
-  gl.InvalidOperation:            "Invalid Operation",
-  gl.OutOfMemory:                 "Out of Memory",
-  gl.InvalidFramebufferOperation: "Invalid Framebuffer Operation",
-}
-
-func ErrorCodeToString(e gl.ErrorCode) string {
-  return fmt.Sprintf("%s (%#x)", errorText[e], int(e))
 }
