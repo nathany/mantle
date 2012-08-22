@@ -100,7 +100,15 @@ func (shader Shader) Compile() {
 func (shader Shader) get(pname shaderPname) int {
   var params C.GLint
   C.glGetShaderiv(C.GLuint(shader), C.GLenum(pname), &params)
+  callAfterHook()
   return int(params)
+}
+
+/*
+  glIsShader: http://www.opengl.org/sdk/docs/man3/xhtml/glIsShader.xml
+*/
+func (shader Shader) isShader() bool {
+  return C.glIsShader(C.GLuint(shader)) == TRUE
 }
 
 func (shader Shader) GetCompileStatus() bool {
@@ -109,6 +117,17 @@ func (shader Shader) GetCompileStatus() bool {
 
 func (shader Shader) GetType() ShaderType {
   return ShaderType(shader.get(shaderType))
+}
+
+func (shader Shader) IsDeleted() bool {
+  return !shader.isShader() // deleted (no longer a shader)
+}
+
+func (shader Shader) GetDeletionFlag() bool {
+  if shader.IsDeleted() {
+    return false
+  }
+  return shader.get(deleteStatus) == TRUE // flagged
 }
 
 /*

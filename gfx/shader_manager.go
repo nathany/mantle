@@ -43,9 +43,12 @@ func InitializeStockShaders() bool {
   fs.Compile()
   log.Printf("Compile successful? %v\n", fs.GetCompileStatus())
   log.Println(fs.GetInfoLog())
+  log.Println(fs.IsDeleted())
 
   vs.Delete()
   fs.Delete()
+  log.Println(fs.GetDeletionFlag())
+  log.Println(fs.IsDeleted())
 
   return true
 }
