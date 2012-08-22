@@ -58,7 +58,7 @@ func main() {
 
   setupRC()
 
-  for glfw.WindowParam(glfw.Opened) == 1 {
+  for glfw.WindowParam(glfw.Opened) == 1 && glfw.Key(glfw.KeyEsc) == 0 {
     renderScene()
   }
 }
