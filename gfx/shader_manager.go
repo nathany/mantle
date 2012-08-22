@@ -26,27 +26,29 @@ const (
 func InitializeStockShaders() bool {
   //  uiStockShaders[GLT_SHADER_IDENTITY]     = gltLoadShaderPairSrcWithAttributes(szIdentityShaderVP, szIdentityShaderFP, 1, GLT_ATTRIBUTE_VERTEX, "vVertex");
 
-  vs, err := gl.NewShader(gl.VertexShader)
-  if err != nil {
-    log.Println(err)
+  vs := gl.NewShader(gl.VertexShader)
+  if vs == 0 {
+    log.Println("Error creating Vertex shader")
   }
-  log.Printf("%s Shader\n", vs.Type())
+  log.Printf("%s Shader\n", vs.GetType())
   vs.SetSource(IdentityShaderVP)
   log.Println(vs.GetSource())
-  log.Printf("Compile successful? %v\n", vs.Compile())
-  log.Println(vs.Log())
+  vs.Compile()
+  log.Printf("Compile successful? %v\n", vs.GetCompileStatus())
+  log.Println(vs.GetInfoLog())
 
-  fs, _ := gl.NewShader(gl.FragmentShader)
+  fs := gl.NewShader(gl.FragmentShader)
   fs.SetSource(IdentityShaderFP)
   log.Println(fs.GetSource())
-  log.Printf("Compile successful? %v\n", fs.Compile())
-  log.Println(fs.Log())
-  log.Println(fs.IsDeleted())
+  fs.Compile()
+  log.Printf("Compile successful? %v\n", fs.GetCompileStatus())
+  log.Println(fs.GetInfoLog())
+  log.Println("Deleted?", !fs.IsShader())
 
   vs.Delete()
   fs.Delete()
-  log.Println(fs.DeletionFlag())
-  log.Println(fs.IsDeleted())
+  log.Println("Deleted?", !fs.IsShader())
+  log.Println("Flagged for Deletion?", fs.GetDeletionStatus())
 
   return true
 }
