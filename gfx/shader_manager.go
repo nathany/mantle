@@ -33,22 +33,20 @@ func InitializeStockShaders(rc gl.Shadeable) bool {
   log.Printf("%s Shader %d\n", vs.Type, vs.Id)
   vs.SetSource(IdentityShaderVP)
   log.Println(vs.GetSource())
-  vs.Compile()
-  log.Printf("Compile successful? %v\n", vs.GetCompileStatus())
+  log.Printf("Compile successful? %v\n", vs.Compile())
   log.Println(vs.GetInfoLog())
 
   fs := rc.NewShader(gl.FragmentShader)
   fs.SetSource(IdentityShaderFP)
   log.Println(fs.GetSource())
-  fs.Compile()
-  log.Printf("Compile successful? %v\n", fs.GetCompileStatus())
+  log.Printf("Compile successful? %v\n", fs.Compile())
   log.Println(fs.GetInfoLog())
-  log.Println("Deleted?", !fs.IsShader())
+  // log.Println("Deleted?", !fs.IsShader())
 
   vs.Delete()
   fs.Delete()
-  log.Println("Deleted?", !fs.IsShader())
-  log.Println("Flagged for Deletion?", fs.GetDeletionStatus())
+  // log.Println("Deleted?", !fs.IsShader())
+  // log.Println("Flagged for Deletion?", fs.GetDeletionStatus())
 
   return true
 }

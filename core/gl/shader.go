@@ -72,13 +72,9 @@ func (shader Shader) SetSource(source string) {
 
   glCompileShader: http://www.opengl.org/sdk/docs/man3/xhtml/glCompileShader.xml
 */
-func (shader Shader) Compile() {
+func (shader Shader) Compile() (success bool) {
   defer shader.rc.handleErrors()
   C.glCompileShader(shader.id)
-}
-
-func (shader Shader) GetCompileStatus() bool {
-  defer shader.rc.handleErrors()
   return shader.get(compileStatus) == TRUE
 }
 
