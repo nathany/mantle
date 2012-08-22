@@ -27,10 +27,10 @@ func InitializeStockShaders(rc *gl.Context) bool {
   //  uiStockShaders[GLT_SHADER_IDENTITY]     = gltLoadShaderPairSrcWithAttributes(szIdentityShaderVP, szIdentityShaderFP, 1, GLT_ATTRIBUTE_VERTEX, "vVertex");
 
   vs := rc.NewShader(gl.VertexShader)
-  if vs == 0 {
+  if vs == nil {
     log.Println("Error creating Vertex shader")
   }
-  log.Printf("%s Shader\n", vs.GetType())
+  log.Printf("%s Shader %d\n", vs.Type, vs.Id)
   vs.SetSource(IdentityShaderVP)
   log.Println(vs.GetSource())
   vs.Compile()

@@ -3,7 +3,13 @@ package gl
 // #include <OpenGL/gl3.h>
 import "C"
 
-type Shader Uint
+type Shader struct {
+  Id   Uint
+  Type ShaderType
+
+  id C.GLuint // GL shader id
+  rc *Context // render context
+}
 
 type ShaderType Enum
 
@@ -28,16 +34,18 @@ func (t ShaderType) String() string {
 
     ShaderType  One of VertexShader, GeometryShader or FragmentShader
 
-    Shader      Returns a shader, or 0 on error.
+    Shader      Returns a shader, or nil on error.
 
     Error()     InvalidEnum
 
   glCreateShader: http://www.opengl.org/sdk/docs/man3/xhtml/glCreateShader.xml
 */
-func (rc *Context) NewShader(t ShaderType) Shader {
-  s := Shader(C.glCreateShader(C.GLenum(t)))
-  rc.callAfterHook()
-  return s
+func (rc *Context) NewShader(t ShaderType) *Shader {
+  defer rc.callAfterHook()
+  if id := C.glCreateShader(C.GLenum(t)); id != 0 {
+    return &Shader{id: id, rc: rc, Type: t, Id: Uint(id)}
+  }
+  return nil
 }
 
 /*
@@ -51,7 +59,7 @@ func (shader Shader) SetSource(source string) {
   csource, length := allocCString(source)
   defer freeCString(csource)
 
-  C.glShaderSource(C.GLuint(shader), 1, &csource, &length)
+  C.glShaderSource(shader.id, 1, &csource, &length)
 }
 
 /*
@@ -60,15 +68,16 @@ func (shader Shader) SetSource(source string) {
   glCompileShader: http://www.opengl.org/sdk/docs/man3/xhtml/glCompileShader.xml
 */
 func (shader Shader) Compile() {
-  C.glCompileShader(C.GLuint(shader))
+  C.glCompileShader(shader.id)
 }
 
 func (shader Shader) GetCompileStatus() bool {
   return shader.get(compileStatus) == TRUE
 }
 
-func (shader Shader) GetType() ShaderType {
-  return ShaderType(shader.get(shaderType))
+func (shader *Shader) GetType() ShaderType {
+  shader.Type = ShaderType(shader.get(shaderType))
+  return shader.Type
 }
 
 /*
@@ -78,7 +87,7 @@ func (shader Shader) GetType() ShaderType {
   glIsShader: http://www.opengl.org/sdk/docs/man3/xhtml/glIsShader.xml
 */
 func (shader Shader) IsShader() bool {
-  return C.glIsShader(C.GLuint(shader)) == TRUE
+  return C.glIsShader(shader.id) == TRUE
 }
 
 /*
@@ -99,7 +108,7 @@ func (shader Shader) GetInfoLog() string {
 
   if length > 1 {
     return fillGoString(length, func(ptr *C.GLchar, size C.GLsizei) {
-      C.glGetShaderInfoLog(C.GLuint(shader), size, nil, ptr)
+      C.glGetShaderInfoLog(shader.id, size, nil, ptr)
     })
   }
   return ""
@@ -114,7 +123,7 @@ func (shader Shader) GetSource() string {
 
   if length > 1 {
     return fillGoString(length, func(ptr *C.GLchar, size C.GLsizei) {
-      C.glGetShaderSource(C.GLuint(shader), size, nil, ptr)
+      C.glGetShaderSource(shader.id, size, nil, ptr)
     })
   }
   return ""
@@ -129,7 +138,7 @@ func (shader Shader) GetSource() string {
   glDeleteShader: http://www.opengl.org/sdk/docs/man3/xhtml/glDeleteShader.xml
 */
 func (shader Shader) Delete() {
-  C.glDeleteShader(C.GLuint(shader))
+  C.glDeleteShader(shader.id)
 }
 
 /*
@@ -139,8 +148,8 @@ func (shader Shader) Delete() {
 */
 func (shader Shader) get(pname shaderPname) int {
   var params C.GLint
-  C.glGetShaderiv(C.GLuint(shader), C.GLenum(pname), &params)
-  // callAfterHook()
+  C.glGetShaderiv(shader.id, C.GLenum(pname), &params)
+  shader.rc.callAfterHook()
   return int(params)
 }
 
