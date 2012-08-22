@@ -5,6 +5,7 @@
 ### 21.
 
 * Determined the 25 additional OpenGL functions needed to draw a triangle.
+* Shaders are compiling.
 
 ### 20.
 
