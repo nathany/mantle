@@ -1,12 +1,10 @@
 package gl
 
 // #include <OpenGL/gl3.h>
-// #include <stdlib.h>
 import "C"
 
 import (
   "errors"
-  "unsafe"
 )
 
 type Shader Uint
@@ -75,10 +73,8 @@ func NewShader(t ShaderType) (Shader, error) {
   glShaderSource: http://www.opengl.org/sdk/docs/man3/xhtml/glShaderSource.xml
 */
 func (shader Shader) SetSource(source string) {
-  length := C.GLint(len(source))
-
-  csource := (*C.GLchar)(C.CString(source))
-  defer C.free(unsafe.Pointer(csource))
+  csource, length := allocCString(source)
+  defer freeCString(csource)
 
   C.glShaderSource(C.GLuint(shader), 1, &csource, &length)
 }
@@ -123,10 +119,9 @@ func (shader Shader) GetInfoLog() string {
   length := shader.get(infoLogLength)
 
   if length > 1 {
-    log := C.malloc(C.size_t(length))
-    defer C.free(log)
-    C.glGetShaderInfoLog(C.GLuint(shader), C.GLsizei(length), nil, (*C.GLchar)(log))
-    return C.GoString((*C.char)(log))
+    return fillGoString(length, func(ptr *C.GLchar, size C.GLsizei) {
+      C.glGetShaderInfoLog(C.GLuint(shader), size, nil, ptr)
+    })
   }
   return ""
 }
@@ -139,10 +134,9 @@ func (shader Shader) GetSource() string {
   length := shader.get(shaderSourceLength)
 
   if length > 1 {
-    log := C.malloc(C.size_t(length))
-    defer C.free(log)
-    C.glGetShaderSource(C.GLuint(shader), C.GLsizei(length), nil, (*C.GLchar)(log))
-    return C.GoString((*C.char)(log))
+    return fillGoString(length, func(ptr *C.GLchar, size C.GLsizei) {
+      C.glGetShaderSource(C.GLuint(shader), size, nil, ptr)
+    })
   }
   return ""
 }
