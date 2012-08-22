@@ -15,7 +15,11 @@ package gl
 // #cgo darwin LDFLAGS: -framework OpenGL
 import "C"
 
-type afterFunc func(*Context)
+type afterFunc func(Errorable)
+
+type Errorable interface {
+  GetError() ErrorCode
+}
 
 type Context struct {
   ClearColor Color
@@ -23,6 +27,7 @@ type Context struct {
   callAfter afterFunc
 }
 
+// create New context and setup error handler
 func NewContext(after afterFunc) *Context {
   return &Context{callAfter: after}
 }

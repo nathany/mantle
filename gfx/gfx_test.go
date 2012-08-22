@@ -2,6 +2,7 @@
 package gfx_test
 
 import (
+  "github.com/nathany/mantle/core/gl"
   "github.com/nathany/mantle/gfx"
   . "launchpad.net/gocheck"
   "testing"
@@ -16,7 +17,15 @@ type S struct{}
 
 var _ = Suite(&S{})
 
-func (s *S) TestErrorCodeToString(c *C) {
-  str := gfx.ErrorCodeToString(0x500)
-  c.Check(str, Equals, "Invalid Enum (0x500)")
+func (s *S) TestGetError(c *C) {
+  fakerc := new(FakeContext)
+
+  err := gfx.GetErrors(fakerc)
+  c.Check(err, IsNil)
+}
+
+type FakeContext struct{}
+
+func (_ FakeContext) GetError() gl.ErrorCode {
+  return gl.NoError
 }
