@@ -38,12 +38,6 @@ const (
   shaderSourceLength shaderPname = 0x8B88
 )
 
-// #define GL_SHADER_TYPE
-// #define GL_DELETE_STATUS                  0x8B80
-// #define GL_COMPILE_STATUS                 0x8B81
-// #define GL_INFO_LOG_LENGTH                0x8B84
-// #define GL_SHADER_SOURCE_LENGTH           0x8B88
-
 /*
   NewShader creates a shader object
 
@@ -88,8 +82,9 @@ func (shader Shader) SetSource(source string) {
 
   glCompileShader: http://www.opengl.org/sdk/docs/man3/xhtml/glCompileShader.xml
 */
-func (shader Shader) Compile() {
+func (shader Shader) Compile() bool {
   C.glCompileShader(C.GLuint(shader))
+  return shader.compileStatus()
 }
 
 /*
@@ -111,11 +106,11 @@ func (shader Shader) isShader() bool {
   return C.glIsShader(C.GLuint(shader)) == TRUE
 }
 
-func (shader Shader) GetCompileStatus() bool {
+func (shader Shader) compileStatus() bool {
   return shader.get(compileStatus) == TRUE
 }
 
-func (shader Shader) GetType() ShaderType {
+func (shader Shader) Type() ShaderType {
   return ShaderType(shader.get(shaderType))
 }
 
@@ -123,7 +118,7 @@ func (shader Shader) IsDeleted() bool {
   return !shader.isShader() // deleted (no longer a shader)
 }
 
-func (shader Shader) GetDeletionFlag() bool {
+func (shader Shader) DeletionFlag() bool {
   if shader.IsDeleted() {
     return false
   }
@@ -134,7 +129,7 @@ func (shader Shader) GetDeletionFlag() bool {
 
   glGetShaderInfoLog: http://www.opengl.org/sdk/docs/man3/xhtml/glGetShaderInfoLog.xml
 */
-func (shader Shader) GetInfoLog() string {
+func (shader Shader) Log() string {
   length := shader.get(infoLogLength)
 
   if length > 1 {

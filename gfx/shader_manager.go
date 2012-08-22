@@ -30,24 +30,22 @@ func InitializeStockShaders() bool {
   if err != nil {
     log.Println(err)
   }
-  log.Printf("%s Shader\n", vs.GetType())
+  log.Printf("%s Shader\n", vs.Type())
   vs.SetSource(IdentityShaderVP)
   log.Println(vs.GetSource())
-  vs.Compile()
-  log.Printf("Compile successful? %v\n", vs.GetCompileStatus())
-  log.Println(vs.GetInfoLog())
+  log.Printf("Compile successful? %v\n", vs.Compile())
+  log.Println(vs.Log())
 
   fs, _ := gl.NewShader(gl.FragmentShader)
   fs.SetSource(IdentityShaderFP)
   log.Println(fs.GetSource())
-  fs.Compile()
-  log.Printf("Compile successful? %v\n", fs.GetCompileStatus())
-  log.Println(fs.GetInfoLog())
+  log.Printf("Compile successful? %v\n", fs.Compile())
+  log.Println(fs.Log())
   log.Println(fs.IsDeleted())
 
   vs.Delete()
   fs.Delete()
-  log.Println(fs.GetDeletionFlag())
+  log.Println(fs.DeletionFlag())
   log.Println(fs.IsDeleted())
 
   return true
