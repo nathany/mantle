@@ -21,6 +21,10 @@ type Errorable interface {
   GetError() ErrorCode
 }
 
+type Shadeable interface {
+  NewShader(t ShaderType) *Shader
+}
+
 type Context struct {
   ClearColor Color
 

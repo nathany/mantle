@@ -23,7 +23,7 @@ const (
     "}"
 )
 
-func InitializeStockShaders(rc *gl.Context) bool {
+func InitializeStockShaders(rc gl.Shadeable) bool {
   //  uiStockShaders[GLT_SHADER_IDENTITY]     = gltLoadShaderPairSrcWithAttributes(szIdentityShaderVP, szIdentityShaderFP, 1, GLT_ATTRIBUTE_VERTEX, "vVertex");
 
   vs := rc.NewShader(gl.VertexShader)
