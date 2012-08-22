@@ -2,10 +2,9 @@
 
 package gl
 
-// callAfterHook is used to call a user-specified function after each GL call
-// It's intended use is to handle OpenGL errors in development builds
-func (rc *Context) callAfterHook() {
-  if rc.callAfter != nil {
-    rc.callAfter(rc)
+// handleErrors is used to call a user-specified error handler after each GL call
+func (rc *Context) handleErrors() {
+  if rc.errorHandler != nil {
+    rc.errorHandler(rc)
   }
 }

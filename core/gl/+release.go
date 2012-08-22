@@ -2,5 +2,5 @@
 
 package gl
 
-// callAfterHook is ignored in release builds
-func (rc *Context) callAfterHook() {}
+// handleErrors is ignored in release builds
+func (rc *Context) handleErrors() {}

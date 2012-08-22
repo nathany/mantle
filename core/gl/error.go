@@ -5,6 +5,12 @@ import "C"
 
 import "fmt"
 
+type Errorable interface {
+  GetError() ErrorCode
+}
+
+type errorHandlerFunc func(Errorable)
+
 /*
   Error will query OpenGL for an error code resulting from past operations.
   More than one error may have been flagged since Error() was last called,

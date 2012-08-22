@@ -3,6 +3,10 @@ package gl
 // #include <OpenGL/gl3.h>
 import "C"
 
+type Shadeable interface {
+  NewShader(t ShaderType) *Shader
+}
+
 type Shader struct {
   Id   Uint
   Type ShaderType
@@ -41,7 +45,7 @@ func (t ShaderType) String() string {
   glCreateShader: http://www.opengl.org/sdk/docs/man3/xhtml/glCreateShader.xml
 */
 func (rc *Context) NewShader(t ShaderType) *Shader {
-  defer rc.callAfterHook()
+  defer rc.handleErrors()
   if id := C.glCreateShader(C.GLenum(t)); id != 0 {
     return &Shader{id: id, rc: rc, Type: t, Id: Uint(id)}
   }
@@ -56,6 +60,7 @@ func (rc *Context) NewShader(t ShaderType) *Shader {
   glShaderSource: http://www.opengl.org/sdk/docs/man3/xhtml/glShaderSource.xml
 */
 func (shader Shader) SetSource(source string) {
+  defer shader.rc.handleErrors()
   csource, length := allocCString(source)
   defer freeCString(csource)
 
@@ -68,14 +73,17 @@ func (shader Shader) SetSource(source string) {
   glCompileShader: http://www.opengl.org/sdk/docs/man3/xhtml/glCompileShader.xml
 */
 func (shader Shader) Compile() {
+  defer shader.rc.handleErrors()
   C.glCompileShader(shader.id)
 }
 
 func (shader Shader) GetCompileStatus() bool {
+  defer shader.rc.handleErrors()
   return shader.get(compileStatus) == TRUE
 }
 
 func (shader *Shader) GetType() ShaderType {
+  defer shader.rc.handleErrors()
   shader.Type = ShaderType(shader.get(shaderType))
   return shader.Type
 }
@@ -87,6 +95,7 @@ func (shader *Shader) GetType() ShaderType {
   glIsShader: http://www.opengl.org/sdk/docs/man3/xhtml/glIsShader.xml
 */
 func (shader Shader) IsShader() bool {
+  defer shader.rc.handleErrors()
   return C.glIsShader(shader.id) == TRUE
 }
 
@@ -96,6 +105,7 @@ func (shader Shader) IsShader() bool {
     Error()     InvalidParam if shader has been deleted
 */
 func (shader Shader) GetDeletionStatus() bool {
+  defer shader.rc.handleErrors()
   return shader.get(deleteStatus) == TRUE
 }
 
@@ -104,6 +114,7 @@ func (shader Shader) GetDeletionStatus() bool {
   glGetShaderInfoLog: http://www.opengl.org/sdk/docs/man3/xhtml/glGetShaderInfoLog.xml
 */
 func (shader Shader) GetInfoLog() string {
+  defer shader.rc.handleErrors()
   length := shader.get(infoLogLength)
 
   if length > 1 {
@@ -119,6 +130,7 @@ func (shader Shader) GetInfoLog() string {
   glGetShaderSource: http://www.opengl.org/sdk/docs/man3/xhtml/glGetShaderSource.xml
 */
 func (shader Shader) GetSource() string {
+  defer shader.rc.handleErrors()
   length := shader.get(shaderSourceLength)
 
   if length > 1 {
@@ -138,6 +150,7 @@ func (shader Shader) GetSource() string {
   glDeleteShader: http://www.opengl.org/sdk/docs/man3/xhtml/glDeleteShader.xml
 */
 func (shader Shader) Delete() {
+  defer shader.rc.handleErrors()
   C.glDeleteShader(shader.id)
 }
 
@@ -147,9 +160,9 @@ func (shader Shader) Delete() {
   glGetShaderiv: http://www.opengl.org/sdk/docs/man3/xhtml/glGetShader.xml
 */
 func (shader Shader) get(pname shaderPname) int {
+  // GL errors for are handled by the caller for better error reporting
   var params C.GLint
   C.glGetShaderiv(shader.id, C.GLenum(pname), &params)
-  shader.rc.callAfterHook()
   return int(params)
 }
 

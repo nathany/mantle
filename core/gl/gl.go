@@ -15,23 +15,13 @@ package gl
 // #cgo darwin LDFLAGS: -framework OpenGL
 import "C"
 
-type afterFunc func(Errorable)
-
-type Errorable interface {
-  GetError() ErrorCode
-}
-
-type Shadeable interface {
-  NewShader(t ShaderType) *Shader
-}
-
 type Context struct {
   ClearColor Color
 
-  callAfter afterFunc
+  errorHandler errorHandlerFunc
 }
 
 // create New context and setup error handler
-func NewContext(after afterFunc) *Context {
-  return &Context{callAfter: after}
+func NewContext(handler errorHandlerFunc) *Context {
+  return &Context{errorHandler: handler}
 }
