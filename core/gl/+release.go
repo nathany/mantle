@@ -3,4 +3,4 @@
 package gl
 
 // callAfterHook is ignored in release builds
-func callAfterHook() {}
+func (rc *Context) callAfterHook() {}

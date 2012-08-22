@@ -10,7 +10,7 @@ import "fmt"
   More than one error may have been flagged since Error() was last called,
   so Error() should be called multiple times until NoError is returned.
 */
-func Error() ErrorCode {
+func (_ Context) GetError() ErrorCode {
   return ErrorCode(C.glGetError())
 }
 

@@ -8,8 +8,12 @@ import (
   "log"
 )
 
+var (
+  rc *gl.Context // rendering context
+)
+
 func init() {
-  gl.SetAfterHook(gfx.ErrorHandler)
+  rc = gl.NewContext(gfx.ErrorHandler)
 }
 
 // GLBatch﻿  triangleBatch
@@ -17,9 +21,9 @@ func init() {
 
 // setup rendering context
 func setupRC() {
-  gl.SetClearColor(gfx.Blue)
+  rc.SetClearColor(gfx.Blue)
 
-  gfx.InitializeStockShaders()
+  gfx.InitializeStockShaders(rc)
 
   vertices := []float32{
     -0.5, 0.0, 0.0,
@@ -34,7 +38,7 @@ func setupRC() {
 }
 
 func renderScene() {
-  gl.Clear(gl.ColorBufferBit)
+  rc.Clear(gl.ColorBufferBit)
   // shaderManager.UseStockShader(GLT_SHADER_IDENTITY, gfx.Red)
   // triangleBatch.Draw()
   glfw.SwapBuffers()
@@ -71,6 +75,6 @@ func openWindow() {
 }
 
 func onResize(w, h int) {
-  gl.SetViewPort(0, 0, w, h)
+  rc.SetViewPort(0, 0, w, h)
   renderScene()
 }

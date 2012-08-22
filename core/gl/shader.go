@@ -34,9 +34,9 @@ func (t ShaderType) String() string {
 
   glCreateShader: http://www.opengl.org/sdk/docs/man3/xhtml/glCreateShader.xml
 */
-func NewShader(t ShaderType) Shader {
+func (rc *Context) NewShader(t ShaderType) Shader {
   s := Shader(C.glCreateShader(C.GLenum(t)))
-  callAfterHook()
+  rc.callAfterHook()
   return s
 }
 
@@ -140,7 +140,7 @@ func (shader Shader) Delete() {
 func (shader Shader) get(pname shaderPname) int {
   var params C.GLint
   C.glGetShaderiv(C.GLuint(shader), C.GLenum(pname), &params)
-  callAfterHook()
+  // callAfterHook()
   return int(params)
 }
 

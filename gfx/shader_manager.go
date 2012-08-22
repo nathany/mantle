@@ -23,10 +23,10 @@ const (
     "}"
 )
 
-func InitializeStockShaders() bool {
+func InitializeStockShaders(rc *gl.Context) bool {
   //  uiStockShaders[GLT_SHADER_IDENTITY]     = gltLoadShaderPairSrcWithAttributes(szIdentityShaderVP, szIdentityShaderFP, 1, GLT_ATTRIBUTE_VERTEX, "vVertex");
 
-  vs := gl.NewShader(gl.VertexShader)
+  vs := rc.NewShader(gl.VertexShader)
   if vs == 0 {
     log.Println("Error creating Vertex shader")
   }
@@ -37,7 +37,7 @@ func InitializeStockShaders() bool {
   log.Printf("Compile successful? %v\n", vs.GetCompileStatus())
   log.Println(vs.GetInfoLog())
 
-  fs := gl.NewShader(gl.FragmentShader)
+  fs := rc.NewShader(gl.FragmentShader)
   fs.SetSource(IdentityShaderFP)
   log.Println(fs.GetSource())
   fs.Compile()

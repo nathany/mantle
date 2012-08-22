@@ -13,9 +13,9 @@ import "C"
 
   glClear: http://www.opengl.org/sdk/docs/man3/xhtml/glClear.xml
 */
-func Clear(mask AttribMask) {
+func (rc *Context) Clear(mask AttribMask) {
   C.glClear(C.GLbitfield(mask))
-  callAfterHook()
+  rc.callAfterHook()
 }
 
 type AttribMask Bitfield
@@ -34,7 +34,7 @@ const (
 
   glClearColor: http://www.opengl.org/sdk/docs/man3/xhtml/glClearColor.xml
 */
-func SetClearColor(c Color) {
+func (rc *Context) SetClearColor(c Color) {
   C.glClearColor(C.GLclampf(c.Red), C.GLclampf(c.Green), C.GLclampf(c.Blue), C.GLclampf(c.Alpha))
-  callAfterHook()
+  rc.callAfterHook()
 }

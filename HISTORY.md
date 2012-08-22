@@ -2,6 +2,10 @@
 
 ## August 2012
 
+### 22.
+
+* A rendering context to cache state and make unit testing easier.
+
 ### 21.
 
 * Determined the 25 additional OpenGL functions needed to draw a triangle.

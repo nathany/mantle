@@ -10,8 +10,8 @@ import (
   "github.com/nathany/mantle/core/gl"
 )
 
-func ErrorHandler() {
-  if err := GetError(); err != nil {
+func ErrorHandler(rc *gl.Context) {
+  if err := GetError(rc); err != nil {
     // Log the error
     gl_func_name, _ := callerInfo(2)
     caller_func_name, caller_file_line := callerInfo(3)
@@ -44,10 +44,10 @@ func (e Error) Error() string {
 }
 
 // Get Error
-func GetError() Error {
+func GetError(rc *gl.Context) Error {
   err := Error{}
   // "glGetError should always be called in a loop, until it returns GL_NO_ERROR"
-  for code := gl.Error(); code != gl.NoError; code = gl.Error() {
+  for code := rc.GetError(); code != gl.NoError; code = rc.GetError() {
     err[code] = true
   }
   if len(err) > 0 {

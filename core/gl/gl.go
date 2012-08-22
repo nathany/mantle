@@ -15,8 +15,12 @@ package gl
 // #cgo darwin LDFLAGS: -framework OpenGL
 import "C"
 
-var afterHook func()
+type afterFunc func(*Context)
 
-func SetAfterHook(f func()) {
-  afterHook = f
+type Context struct {
+  callAfter afterFunc
+}
+
+func NewContext(after afterFunc) *Context {
+  return &Context{callAfter: after}
 }

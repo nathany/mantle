@@ -7,12 +7,16 @@ import (
   "log"
 )
 
+var (
+  rc *gl.Context // rendering context
+)
+
 func init() {
-  gl.SetAfterHook(gfx.ErrorHandler)
+  rc = gl.NewContext(gfx.ErrorHandler)
 }
 
 func renderScene() {
-  gl.Clear(gl.ColorBufferBit)
+  rc.Clear(gl.ColorBufferBit)
   glfw.SwapBuffers()
 }
 
@@ -27,7 +31,7 @@ func main() {
   glfw.SetWindowTitle("Mantle")
   glfw.SetWindowSizeCallback(onResize)
 
-  gl.SetClearColor(gfx.Blue)
+  rc.SetClearColor(gfx.Blue)
 
   for glfw.WindowParam(glfw.Opened) == 1 {
     renderScene()
@@ -47,6 +51,6 @@ func openWindow() {
 }
 
 func onResize(w, h int) {
-  gl.SetViewPort(0, 0, w, h)
+  rc.SetViewPort(0, 0, w, h)
   renderScene()
 }
