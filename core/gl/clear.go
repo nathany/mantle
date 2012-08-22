@@ -36,5 +36,6 @@ const (
 */
 func (rc *Context) SetClearColor(c Color) {
   C.glClearColor(C.GLclampf(c.Red), C.GLclampf(c.Green), C.GLclampf(c.Blue), C.GLclampf(c.Alpha))
+  rc.ClearColor = c
   rc.callAfterHook()
 }

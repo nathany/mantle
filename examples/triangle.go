@@ -22,6 +22,7 @@ func init() {
 // setup rendering context
 func setupRC() {
   rc.SetClearColor(gfx.Blue)
+  fmt.Println(rc.ClearColor)
 
   gfx.InitializeStockShaders(rc)
 

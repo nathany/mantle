@@ -18,6 +18,8 @@ import "C"
 type afterFunc func(*Context)
 
 type Context struct {
+  ClearColor Color
+
   callAfter afterFunc
 }
 
