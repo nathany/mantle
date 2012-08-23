@@ -100,6 +100,18 @@ func (program Program) UniformLocation(name string) UniformLocation {
 }
 
 /*
+
+  glBindFragDataLocation: http://www.opengl.org/sdk/docs/man3/xhtml/glBindFragDataLocation.xml
+*/
+func (program Program) BindFragDataLocation(colorNumber uint, name string) {
+  defer program.rc.handleErrors()
+  cName, _ := allocCString(name)
+  defer freeCString(cName)
+
+  C.glBindFragDataLocation(program.id, C.GLuint(colorNumber), cName)
+}
+
+/*
   Delete the program, or flag for deletion if part of the current rendering state.
   Shaders will be automtically detatched, but not deleted unless they were already flagged for deletion.
 

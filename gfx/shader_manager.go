@@ -55,14 +55,13 @@ func IdentityShader(rc Shadeable) *gl.Program {
   p := rc.NewProgram()
   p.AttachShader(vs)
   p.AttachShader(fs)
+
+  p.BindAttribLocation(0, "vVertex")     // IN
+  p.BindFragDataLocation(0, "FragColor") // OUT
+
   if ok := p.Link(); !ok {
     log.Println("Link failed:\n", p.GetInfoLog())
   }
-
-  // Vertex attribute
-  p.BindAttribLocation(0, "vVertex")
-
-  // what do I need to do for FragColor?
 
   vs.Delete()
   fs.Delete()

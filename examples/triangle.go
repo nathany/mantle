@@ -1,7 +1,6 @@
 package main
 
 import (
-  "fmt"
   "github.com/jteeuwen/glfw"
   "github.com/nathany/mantle/core/gl"
   "github.com/nathany/mantle/gfx"
@@ -9,8 +8,9 @@ import (
 )
 
 var (
-  rc      *gl.Context // rendering context
-  program *gl.Program // identity shader program
+  rc                *gl.Context // rendering context
+  program           *gl.Program // identity shader program
+  vertexArrayObject []gl.VertexArray
 )
 
 func init() {
@@ -31,18 +31,19 @@ func setupRC() {
     0.5, 0.0, 0.0,
     0.0, 0.5, 0.0}
 
-  fmt.Println(vertices)
-
   // triangleBatch.Begin(GL_TRIANGLES, 3)
   // triangleBatch.CopyVertexData3f(vertices)
   // triangleBatch.End()
+  gfx.CopyVertexData3f(rc, vertices)
 }
 
 func renderScene() {
   rc.Clear(gl.ColorBufferBit)
   if program != nil { // program is not yet defined first call from onResize
     gfx.UseIdentityShader(program, gfx.Red)
-    // triangleBatch.Draw()
+    //vertexArrayObject[0].Bind()
+    rc.DrawArrays(gl.Triangles, 0, 3)
+    //rc.UnbindVertexArray()
   }
   glfw.SwapBuffers()
 }
