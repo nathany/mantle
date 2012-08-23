@@ -23,32 +23,58 @@ const (
     "}"
 )
 
-func InitializeStockShaders(rc gl.Shadeable) bool {
+type Shadeable interface {
+  NewShader(t gl.ShaderType) *gl.Shader
+  NewProgram() *gl.Program
+}
+
+// func InitializeStockShaders()
+
+func IdentityShader(rc Shadeable) *gl.Program {
   //  uiStockShaders[GLT_SHADER_IDENTITY]     = gltLoadShaderPairSrcWithAttributes(szIdentityShaderVP, szIdentityShaderFP, 1, GLT_ATTRIBUTE_VERTEX, "vVertex");
 
   vs := rc.NewShader(gl.VertexShader)
   if vs == nil {
     log.Println("Error creating Vertex shader")
   }
-  log.Printf("%s Shader %d\n", vs.Type, vs.Id)
+  // log.Printf("%s Shader %d\n", vs.Type, vs.Id)
   vs.SetSource(IdentityShaderVP)
-  log.Println(vs.GetSource())
-  log.Printf("Compile successful? %v\n", vs.Compile())
-  log.Println(vs.GetInfoLog())
+  // log.Println(vs.GetSource())
+  if ok := vs.Compile(); !ok {
+    log.Println("Compile failed:\n", vs.GetInfoLog())
+  }
 
   fs := rc.NewShader(gl.FragmentShader)
   fs.SetSource(IdentityShaderFP)
-  log.Println(fs.GetSource())
-  log.Printf("Compile successful? %v\n", fs.Compile())
-  log.Println(fs.GetInfoLog())
+  // log.Println(fs.GetSource())
+  if ok := fs.Compile(); !ok {
+    log.Println("Compile failed:\n", fs.GetInfoLog())
+  }
   // log.Println("Deleted?", !fs.IsShader())
+
+  p := rc.NewProgram()
+  p.AttachShader(vs)
+  p.AttachShader(fs)
+  if ok := p.Link(); !ok {
+    log.Println("Link failed:\n", p.GetInfoLog())
+  }
+
+  // Vertex attribute
+  p.BindAttribLocation(0, "vVertex")
+
+  // what do I need to do for FragColor?
 
   vs.Delete()
   fs.Delete()
   // log.Println("Deleted?", !fs.IsShader())
   // log.Println("Flagged for Deletion?", fs.GetDeletionStatus())
 
-  return true
+  return p
 }
 
 // UseStockShader(GLT_STOCK_SHADER nShaderID, ...)
+func UseIdentityShader(program *gl.Program, color gl.Color) {
+  program.Use()
+  colorLocation := program.UniformLocation("vColor")
+  colorLocation.SetColor(color)
+}

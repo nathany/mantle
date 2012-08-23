@@ -9,7 +9,8 @@ import (
 )
 
 var (
-  rc *gl.Context // rendering context
+  rc      *gl.Context // rendering context
+  program *gl.Program // identity shader program
 )
 
 func init() {
@@ -22,9 +23,8 @@ func init() {
 // setup rendering context
 func setupRC() {
   rc.SetClearColor(gfx.Blue)
-  fmt.Println(rc.ClearColor)
 
-  gfx.InitializeStockShaders(rc)
+  program = gfx.IdentityShader(rc)
 
   vertices := []float32{
     -0.5, 0.0, 0.0,
@@ -40,8 +40,10 @@ func setupRC() {
 
 func renderScene() {
   rc.Clear(gl.ColorBufferBit)
-  // shaderManager.UseStockShader(GLT_SHADER_IDENTITY, gfx.Red)
-  // triangleBatch.Draw()
+  if program != nil { // program is not yet defined first call from onResize
+    gfx.UseIdentityShader(program, gfx.Red)
+    // triangleBatch.Draw()
+  }
   glfw.SwapBuffers()
 }
 
@@ -57,6 +59,7 @@ func main() {
   glfw.SetWindowSizeCallback(onResize)
 
   setupRC()
+  defer program.Delete()
 
   for glfw.WindowParam(glfw.Opened) == 1 && glfw.Key(glfw.KeyEsc) == 0 {
     renderScene()

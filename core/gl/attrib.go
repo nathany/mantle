@@ -4,10 +4,6 @@ package gl
 import "C"
 
 /*
-  glBindAttribLocation:
-*/
-
-/*
   glEnableVertexAttribArray
 */
 

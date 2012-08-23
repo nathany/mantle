@@ -3,10 +3,6 @@ package gl
 // #include <OpenGL/gl3.h>
 import "C"
 
-type Shadeable interface {
-  NewShader(t ShaderType) *Shader
-}
-
 type Shader struct {
   Id   Uint
   Type ShaderType
@@ -72,7 +68,7 @@ func (shader Shader) SetSource(source string) {
 
   glCompileShader: http://www.opengl.org/sdk/docs/man3/xhtml/glCompileShader.xml
 */
-func (shader Shader) Compile() (success bool) {
+func (shader Shader) Compile() (ok bool) {
   defer shader.rc.handleErrors()
   C.glCompileShader(shader.id)
   return shader.get(compileStatus) == TRUE
@@ -111,7 +107,7 @@ func (shader Shader) GetDeletionStatus() bool {
 */
 func (shader Shader) GetInfoLog() string {
   defer shader.rc.handleErrors()
-  length := shader.get(infoLogLength)
+  length := shader.get(shaderInfoLogLength)
 
   if length > 1 {
     return fillGoString(length, func(ptr *C.GLchar, size C.GLsizei) {
@@ -141,7 +137,7 @@ func (shader Shader) GetSource() string {
   Delete a shader object, or flag for deletion if attached to a program.
   The shader must be detached from programs before the shader memory is freed.
 
-    Error()   Invalid Value
+    GetError()    InvalidValue
 
   glDeleteShader: http://www.opengl.org/sdk/docs/man3/xhtml/glDeleteShader.xml
 */
@@ -166,9 +162,9 @@ func (shader Shader) get(pname shaderPname) int {
 type shaderPname Enum
 
 const (
-  shaderType         shaderPname = 0x8B4F
-  deleteStatus       shaderPname = 0x8B80
-  compileStatus      shaderPname = 0x8B81
-  infoLogLength      shaderPname = 0x8B84
-  shaderSourceLength shaderPname = 0x8B88
+  shaderType          shaderPname = 0x8B4F
+  deleteStatus        shaderPname = 0x8B80
+  compileStatus       shaderPname = 0x8B81
+  shaderInfoLogLength shaderPname = 0x8B84 // same as programInfoLogLength
+  shaderSourceLength  shaderPname = 0x8B88
 )
