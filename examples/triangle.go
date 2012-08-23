@@ -58,6 +58,7 @@ func main() {
   defer glfw.CloseWindow()
   glfw.SetWindowTitle("Triangle")
   glfw.SetWindowSizeCallback(onResize)
+  glfw.SetSwapInterval(1) // vsync on
 
   setupRC()
   defer program.Delete()
