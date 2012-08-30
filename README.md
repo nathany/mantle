@@ -49,6 +49,7 @@ Books:
 
 Online:
 
+* [Learning Modern 3D Graphics Programming](http://www.arcsynthesis.org/gltut/)
 * [OpenGL 3.3 Reference](http://www.opengl.org/sdk/docs/man3/)
 * [OpenGL for Mac OS X](https://developer.apple.com/devcenter/mac/resources/opengl/)
 * [cgo](http://golang.org/doc/articles/c_go_cgo.html) documentation for Go bindings
