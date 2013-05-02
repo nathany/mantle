@@ -1,7 +1,7 @@
 package gfx
 
 import (
-  "github.com/nathany/mantle/core/gl"
+    "github.com/nathany/mantle/core/gl"
 )
 
 // Start populating the array
@@ -15,20 +15,20 @@ import (
 // glBindBuffer(GL_ARRAY_BUFFER, uiVertexArray);
 // glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 3 * nNumVerts, vVerts, GL_DYNAMIC_DRAW);
 func CopyVertexData3f(rc *gl.Context, vertices []float32) {
-  // begin
-  vertexArrayObject := rc.GenVertexArrays(1)
-  vertexArrayObject[0].Bind()
+    // begin
+    vertexArrayObject := rc.GenVertexArrays(1)
+    vertexArrayObject[0].Bind()
 
-  // copy
-  uiVertexArray := rc.GenBuffers(1)
-  uiVertexArray[0].Bind(gl.ArrayBuffer)
-  gl.ArrayBuffer.SetBufferData(vertices, gl.DynamicDraw)
+    // copy
+    uiVertexArray := rc.GenBuffers(1)
+    uiVertexArray[0].Bind(gl.ArrayBuffer)
+    gl.ArrayBuffer.SetBufferData(vertices, gl.DynamicDraw)
 
-  // end
-  vertexArrayObject[0].Bind()
-  rc.EnableVertexAttribArray(0) // vVertex
-  uiVertexArray[0].Bind(gl.ArrayBuffer)
-  rc.VertexAttribPointer(0, 3, gl.FLOAT, false, 0, 0)
+    // end
+    vertexArrayObject[0].Bind()
+    rc.EnableVertexAttribArray(0) // vVertex
+    uiVertexArray[0].Bind(gl.ArrayBuffer)
+    rc.VertexAttribPointer(0, 3, gl.FLOAT, false, 0, 0)
 }
 
 // void GLBatch::Draw(void)

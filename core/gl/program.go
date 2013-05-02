@@ -4,10 +4,10 @@ package gl
 import "C"
 
 type Program struct {
-  Id Uint
+    Id  Uint
 
-  id C.GLuint // GL program id
-  rc *Context // render context
+    id  C.GLuint // GL program id
+    rc  *Context // render context
 }
 
 type AttribLocation uint
@@ -19,11 +19,11 @@ type UniformLocation int
   glCreateProgram: http://www.opengl.org/sdk/docs/man3/xhtml/glCreateProgram.xml
 */
 func (rc *Context) NewProgram() *Program {
-  defer rc.handleErrors()
-  if id := C.glCreateProgram(); id != 0 {
-    return &Program{id: id, rc: rc, Id: Uint(id)}
-  }
-  return nil
+    defer rc.handleErrors()
+    if id := C.glCreateProgram(); id != 0 {
+        return &Program{id: id, rc: rc, Id: Uint(id)}
+    }
+    return nil
 }
 
 /*
@@ -32,8 +32,8 @@ func (rc *Context) NewProgram() *Program {
   glAttachShader: http://www.opengl.org/sdk/docs/man3/xhtml/glAttachShader.xml
 */
 func (program Program) AttachShader(shader *Shader) {
-  defer program.rc.handleErrors()
-  C.glAttachShader(program.id, shader.id)
+    defer program.rc.handleErrors()
+    C.glAttachShader(program.id, shader.id)
 }
 
 /*
@@ -42,9 +42,9 @@ func (program Program) AttachShader(shader *Shader) {
   glLinkProgram: http://www.opengl.org/sdk/docs/man3/xhtml/glLinkProgram.xml
 */
 func (program Program) Link() (ok bool) {
-  defer program.rc.handleErrors()
-  C.glLinkProgram(program.id)
-  return program.get(linkStatus) == TRUE
+    defer program.rc.handleErrors()
+    C.glLinkProgram(program.id)
+    return program.get(linkStatus) == TRUE
 }
 
 /*
@@ -53,15 +53,15 @@ func (program Program) Link() (ok bool) {
   glGetProgramInfoLog: http://www.opengl.org/sdk/docs/man3/xhtml/glGetProgramInfoLog.xml
 */
 func (program Program) GetInfoLog() string {
-  defer program.rc.handleErrors()
-  length := program.get(programInfoLogLength)
+    defer program.rc.handleErrors()
+    length := program.get(programInfoLogLength)
 
-  if length > 1 {
-    return fillGoString(length, func(ptr *C.GLchar, size C.GLsizei) {
-      C.glGetProgramInfoLog(program.id, size, nil, ptr)
-    })
-  }
-  return ""
+    if length > 1 {
+        return fillGoString(length, func(ptr *C.GLchar, size C.GLsizei) {
+            C.glGetProgramInfoLog(program.id, size, nil, ptr)
+        })
+    }
+    return ""
 }
 
 /*
@@ -70,8 +70,8 @@ func (program Program) GetInfoLog() string {
   glUseProgram: http://www.opengl.org/sdk/docs/man3/xhtml/glUseProgram.xml
 */
 func (program Program) Use() {
-  defer program.rc.handleErrors()
-  C.glUseProgram(program.id)
+    defer program.rc.handleErrors()
+    C.glUseProgram(program.id)
 }
 
 /*
@@ -80,10 +80,10 @@ func (program Program) Use() {
   glBindAttribLocation: http://www.opengl.org/sdk/docs/man3/xhtml/glBindAttribLocation.xml
 */
 func (program Program) BindAttribLocation(index AttribLocation, name string) {
-  defer program.rc.handleErrors()
-  cName, _ := allocCString(name)
-  defer freeCString(cName)
-  C.glBindAttribLocation(program.id, C.GLuint(index), cName)
+    defer program.rc.handleErrors()
+    cName, _ := allocCString(name)
+    defer freeCString(cName)
+    C.glBindAttribLocation(program.id, C.GLuint(index), cName)
 }
 
 /*
@@ -92,11 +92,11 @@ func (program Program) BindAttribLocation(index AttribLocation, name string) {
   glGetUniformLocation: http://www.opengl.org/sdk/docs/man3/xhtml/glGetUniformLocation.xml
 */
 func (program Program) UniformLocation(name string) UniformLocation {
-  defer program.rc.handleErrors()
-  cName, _ := allocCString(name)
-  defer freeCString(cName)
+    defer program.rc.handleErrors()
+    cName, _ := allocCString(name)
+    defer freeCString(cName)
 
-  return UniformLocation(C.glGetUniformLocation(program.id, cName))
+    return UniformLocation(C.glGetUniformLocation(program.id, cName))
 }
 
 /*
@@ -104,11 +104,11 @@ func (program Program) UniformLocation(name string) UniformLocation {
   glBindFragDataLocation: http://www.opengl.org/sdk/docs/man3/xhtml/glBindFragDataLocation.xml
 */
 func (program Program) BindFragDataLocation(colorNumber uint, name string) {
-  defer program.rc.handleErrors()
-  cName, _ := allocCString(name)
-  defer freeCString(cName)
+    defer program.rc.handleErrors()
+    cName, _ := allocCString(name)
+    defer freeCString(cName)
 
-  C.glBindFragDataLocation(program.id, C.GLuint(colorNumber), cName)
+    C.glBindFragDataLocation(program.id, C.GLuint(colorNumber), cName)
 }
 
 /*
@@ -120,8 +120,8 @@ func (program Program) BindFragDataLocation(colorNumber uint, name string) {
   glDeleteProgram: http://www.opengl.org/sdk/docs/man3/xhtml/glDeleteProgram.xml
 */
 func (program Program) Delete() {
-  defer program.rc.handleErrors()
-  C.glDeleteProgram(program.id)
+    defer program.rc.handleErrors()
+    C.glDeleteProgram(program.id)
 }
 
 /*
@@ -130,16 +130,16 @@ func (program Program) Delete() {
   glGetProgramiv: http://www.opengl.org/sdk/docs/man3/xhtml/glGetProgram.xml
 */
 func (program Program) get(pname programPname) int {
-  // GL errors for are handled by the caller for better error reporting
-  var params C.GLint
-  C.glGetProgramiv(program.id, C.GLenum(pname), &params)
-  return int(params)
+    // GL errors for are handled by the caller for better error reporting
+    var params C.GLint
+    C.glGetProgramiv(program.id, C.GLenum(pname), &params)
+    return int(params)
 }
 
 // Parameter names for Program.get()
 type programPname Enum
 
 const (
-  linkStatus           programPname = 0x8B82
-  programInfoLogLength programPname = 0x8B84 // same as shaderInfoLogLength
+    linkStatus           programPname = 0x8B82
+    programInfoLogLength programPname = 0x8B84 // same as shaderInfoLogLength
 )

@@ -9,6 +9,6 @@ import "C"
   glViewport: http://www.opengl.org/sdk/docs/man3/xhtml/glViewport.xml
 */
 func (rc *Context) SetViewPort(x, y, width, height int) {
-  defer rc.handleErrors()
-  C.glViewport(C.GLint(x), C.GLint(y), C.GLsizei(width), C.GLsizei(height))
+    defer rc.handleErrors()
+    C.glViewport(C.GLint(x), C.GLint(y), C.GLsizei(width), C.GLsizei(height))
 }

@@ -4,29 +4,29 @@ package gl
 import "C"
 
 type Shader struct {
-  Id   Uint
-  Type ShaderType
+    Id   Uint
+    Type ShaderType
 
-  id C.GLuint // GL shader id
-  rc *Context // render context
+    id  C.GLuint // GL shader id
+    rc  *Context // render context
 }
 
 type ShaderType Enum
 
 const (
-  VertexShader   ShaderType = 0x8B31
-  GeometryShader ShaderType = 0x8DD9
-  FragmentShader ShaderType = 0x8B30
+    VertexShader   ShaderType = 0x8B31
+    GeometryShader ShaderType = 0x8DD9
+    FragmentShader ShaderType = 0x8B30
 )
 
 var shaderTypeText = map[ShaderType]string{
-  VertexShader:   "Vertex",
-  GeometryShader: "Geometry",
-  FragmentShader: "Fragment",
+    VertexShader:   "Vertex",
+    GeometryShader: "Geometry",
+    FragmentShader: "Fragment",
 }
 
 func (t ShaderType) String() string {
-  return shaderTypeText[t]
+    return shaderTypeText[t]
 }
 
 /*
@@ -41,11 +41,11 @@ func (t ShaderType) String() string {
   glCreateShader: http://www.opengl.org/sdk/docs/man3/xhtml/glCreateShader.xml
 */
 func (rc *Context) NewShader(t ShaderType) *Shader {
-  defer rc.handleErrors()
-  if id := C.glCreateShader(C.GLenum(t)); id != 0 {
-    return &Shader{id: id, rc: rc, Type: t, Id: Uint(id)}
-  }
-  return nil
+    defer rc.handleErrors()
+    if id := C.glCreateShader(C.GLenum(t)); id != 0 {
+        return &Shader{id: id, rc: rc, Type: t, Id: Uint(id)}
+    }
+    return nil
 }
 
 /*
@@ -56,11 +56,11 @@ func (rc *Context) NewShader(t ShaderType) *Shader {
   glShaderSource: http://www.opengl.org/sdk/docs/man3/xhtml/glShaderSource.xml
 */
 func (shader Shader) SetSource(source string) {
-  defer shader.rc.handleErrors()
-  csource, length := allocCString(source)
-  defer freeCString(csource)
+    defer shader.rc.handleErrors()
+    csource, length := allocCString(source)
+    defer freeCString(csource)
 
-  C.glShaderSource(shader.id, 1, &csource, &length)
+    C.glShaderSource(shader.id, 1, &csource, &length)
 }
 
 /*
@@ -69,15 +69,15 @@ func (shader Shader) SetSource(source string) {
   glCompileShader: http://www.opengl.org/sdk/docs/man3/xhtml/glCompileShader.xml
 */
 func (shader Shader) Compile() (ok bool) {
-  defer shader.rc.handleErrors()
-  C.glCompileShader(shader.id)
-  return shader.get(compileStatus) == TRUE
+    defer shader.rc.handleErrors()
+    C.glCompileShader(shader.id)
+    return shader.get(compileStatus) == TRUE
 }
 
 func (shader *Shader) GetType() ShaderType {
-  defer shader.rc.handleErrors()
-  shader.Type = ShaderType(shader.get(shaderType))
-  return shader.Type
+    defer shader.rc.handleErrors()
+    shader.Type = ShaderType(shader.get(shaderType))
+    return shader.Type
 }
 
 /*
@@ -87,8 +87,8 @@ func (shader *Shader) GetType() ShaderType {
   glIsShader: http://www.opengl.org/sdk/docs/man3/xhtml/glIsShader.xml
 */
 func (shader Shader) IsShader() bool {
-  defer shader.rc.handleErrors()
-  return C.glIsShader(shader.id) == TRUE
+    defer shader.rc.handleErrors()
+    return C.glIsShader(shader.id) == TRUE
 }
 
 /*
@@ -97,8 +97,8 @@ func (shader Shader) IsShader() bool {
     Error()     InvalidParam if shader has been deleted
 */
 func (shader Shader) GetDeletionStatus() bool {
-  defer shader.rc.handleErrors()
-  return shader.get(deleteStatus) == TRUE
+    defer shader.rc.handleErrors()
+    return shader.get(deleteStatus) == TRUE
 }
 
 /*
@@ -106,15 +106,15 @@ func (shader Shader) GetDeletionStatus() bool {
   glGetShaderInfoLog: http://www.opengl.org/sdk/docs/man3/xhtml/glGetShaderInfoLog.xml
 */
 func (shader Shader) GetInfoLog() string {
-  defer shader.rc.handleErrors()
-  length := shader.get(shaderInfoLogLength)
+    defer shader.rc.handleErrors()
+    length := shader.get(shaderInfoLogLength)
 
-  if length > 1 {
-    return fillGoString(length, func(ptr *C.GLchar, size C.GLsizei) {
-      C.glGetShaderInfoLog(shader.id, size, nil, ptr)
-    })
-  }
-  return ""
+    if length > 1 {
+        return fillGoString(length, func(ptr *C.GLchar, size C.GLsizei) {
+            C.glGetShaderInfoLog(shader.id, size, nil, ptr)
+        })
+    }
+    return ""
 }
 
 /*
@@ -122,15 +122,15 @@ func (shader Shader) GetInfoLog() string {
   glGetShaderSource: http://www.opengl.org/sdk/docs/man3/xhtml/glGetShaderSource.xml
 */
 func (shader Shader) GetSource() string {
-  defer shader.rc.handleErrors()
-  length := shader.get(shaderSourceLength)
+    defer shader.rc.handleErrors()
+    length := shader.get(shaderSourceLength)
 
-  if length > 1 {
-    return fillGoString(length, func(ptr *C.GLchar, size C.GLsizei) {
-      C.glGetShaderSource(shader.id, size, nil, ptr)
-    })
-  }
-  return ""
+    if length > 1 {
+        return fillGoString(length, func(ptr *C.GLchar, size C.GLsizei) {
+            C.glGetShaderSource(shader.id, size, nil, ptr)
+        })
+    }
+    return ""
 }
 
 /*
@@ -142,8 +142,8 @@ func (shader Shader) GetSource() string {
   glDeleteShader: http://www.opengl.org/sdk/docs/man3/xhtml/glDeleteShader.xml
 */
 func (shader Shader) Delete() {
-  defer shader.rc.handleErrors()
-  C.glDeleteShader(shader.id)
+    defer shader.rc.handleErrors()
+    C.glDeleteShader(shader.id)
 }
 
 /*
@@ -152,19 +152,19 @@ func (shader Shader) Delete() {
   glGetShaderiv: http://www.opengl.org/sdk/docs/man3/xhtml/glGetShader.xml
 */
 func (shader Shader) get(pname shaderPname) int {
-  // GL errors for are handled by the caller for better error reporting
-  var params C.GLint
-  C.glGetShaderiv(shader.id, C.GLenum(pname), &params)
-  return int(params)
+    // GL errors for are handled by the caller for better error reporting
+    var params C.GLint
+    C.glGetShaderiv(shader.id, C.GLenum(pname), &params)
+    return int(params)
 }
 
 // Parameter names for Shader.get()
 type shaderPname Enum
 
 const (
-  shaderType          shaderPname = 0x8B4F
-  deleteStatus        shaderPname = 0x8B80
-  compileStatus       shaderPname = 0x8B81
-  shaderInfoLogLength shaderPname = 0x8B84 // same as programInfoLogLength
-  shaderSourceLength  shaderPname = 0x8B88
+    shaderType          shaderPname = 0x8B4F
+    deleteStatus        shaderPname = 0x8B80
+    compileStatus       shaderPname = 0x8B81
+    shaderInfoLogLength shaderPname = 0x8B84 // same as programInfoLogLength
+    shaderSourceLength  shaderPname = 0x8B88
 )

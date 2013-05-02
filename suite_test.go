@@ -1,13 +1,13 @@
 package mantle
 
 import (
-  . "launchpad.net/gocheck"
-  "testing"
+    . "launchpad.net/gocheck"
+    "testing"
 )
 
 // Hook gocheck into the gotest runner
 func TestAll(t *testing.T) {
-  TestingT(t)
+    TestingT(t)
 }
 
 type S struct{}

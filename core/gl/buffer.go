@@ -4,7 +4,7 @@ package gl
 import "C"
 
 import (
-  "unsafe"
+    "unsafe"
 )
 
 type Buffer Uint
@@ -12,23 +12,23 @@ type Buffer Uint
 type Target Enum
 
 const (
-  ArrayBuffer Target = 0x8892
+    ArrayBuffer Target = 0x8892
 )
 
 type Usage Enum
 
 const (
-  DynamicDraw Usage = 0x88E8
+    DynamicDraw Usage = 0x88E8
 )
 
 /*
   glGenBuffers: http://www.opengl.org/sdk/docs/man3/xhtml/glGenBuffers.xml
 */
 func (rc *Context) GenBuffers(number int) []Buffer {
-  defer rc.handleErrors()
-  buffers := make([]Buffer, number) // a slice
-  C.glGenBuffers(C.GLsizei(len(buffers)), (*C.GLuint)(&buffers[0]))
-  return buffers
+    defer rc.handleErrors()
+    buffers := make([]Buffer, number) // a slice
+    C.glGenBuffers(C.GLsizei(len(buffers)), (*C.GLuint)(&buffers[0]))
+    return buffers
 }
 
 /*
@@ -38,8 +38,8 @@ func (rc *Context) GenBuffers(number int) []Buffer {
   glBindBuffer: http://www.opengl.org/sdk/docs/man3/xhtml/glBindBuffer.xml
 */
 func (buffer Buffer) Bind(target Target) {
-  // defer rc.handleErrors()
-  C.glBindBuffer(C.GLenum(target), C.GLuint(buffer))
+    // defer rc.handleErrors()
+    C.glBindBuffer(C.GLenum(target), C.GLuint(buffer))
 }
 
 /*
@@ -48,10 +48,10 @@ func (buffer Buffer) Bind(target Target) {
   glBufferData: http://www.opengl.org/sdk/docs/man3/xhtml/glBufferData.xml
 */
 func (target Target) SetBufferData(data []float32, usage Usage) {
-  // defer rc.handleErrors()
-  size := int(unsafe.Sizeof(data[0])) * len(data)
-  // println(size)
-  C.glBufferData(C.GLenum(target), C.GLsizeiptr(size), unsafe.Pointer(&data[0]), C.GLenum(usage))
+    // defer rc.handleErrors()
+    size := int(unsafe.Sizeof(data[0])) * len(data)
+    // println(size)
+    C.glBufferData(C.GLenum(target), C.GLsizeiptr(size), unsafe.Pointer(&data[0]), C.GLenum(usage))
 }
 
 /*

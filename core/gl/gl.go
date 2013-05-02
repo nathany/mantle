@@ -16,12 +16,12 @@ package gl
 import "C"
 
 type Context struct {
-  ClearColor Color
+    ClearColor Color
 
-  errorHandler errorHandlerFunc
+    errorHandler errorHandlerFunc
 }
 
 // create New context and setup error handler
 func NewContext(handler errorHandlerFunc) *Context {
-  return &Context{errorHandler: handler}
+    return &Context{errorHandler: handler}
 }

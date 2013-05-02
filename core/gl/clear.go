@@ -14,16 +14,16 @@ import "C"
   glClear: http://www.opengl.org/sdk/docs/man3/xhtml/glClear.xml
 */
 func (rc *Context) Clear(mask AttribMask) {
-  defer rc.handleErrors()
-  C.glClear(C.GLbitfield(mask))
+    defer rc.handleErrors()
+    C.glClear(C.GLbitfield(mask))
 }
 
 type AttribMask Bitfield
 
 const (
-  DepthBufferBit   AttribMask = 0x00000100
-  StencilBufferBit AttribMask = 0x00000400
-  ColorBufferBit   AttribMask = 0x00004000
+    DepthBufferBit   AttribMask = 0x00000100
+    StencilBufferBit AttribMask = 0x00000400
+    ColorBufferBit   AttribMask = 0x00004000
 )
 
 /*
@@ -35,7 +35,7 @@ const (
   glClearColor: http://www.opengl.org/sdk/docs/man3/xhtml/glClearColor.xml
 */
 func (rc *Context) SetClearColor(c Color) {
-  defer rc.handleErrors()
-  C.glClearColor(C.GLclampf(c.Red), C.GLclampf(c.Green), C.GLclampf(c.Blue), C.GLclampf(c.Alpha))
-  rc.ClearColor = c
+    defer rc.handleErrors()
+    C.glClearColor(C.GLclampf(c.Red), C.GLclampf(c.Green), C.GLclampf(c.Blue), C.GLclampf(c.Alpha))
+    rc.ClearColor = c
 }
