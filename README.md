@@ -6,7 +6,7 @@ As I've been learning OpenGL, I've decided that I want this to be a wrapper that
 
 At the same time, I'd like this to be moderately performant, so it may not always be practical to follow "the Go Way" (eg. checking for errors after every call would get expensive).
 
-This is **Work in Progress**. Come back in 2013 and it might be useful.
+This is **Work in Progress**.
 
 Alternative, more complete bindings:
 
