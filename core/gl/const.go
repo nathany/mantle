@@ -39,9 +39,9 @@ type (
 
 // Color contains red, green, blue values between 0.0 and 1.0.
 type Color struct {
-    Red, Green, Blue Clampf
+    Red, Green, Blue Float
     Alpha
 }
 
 // Alpha can be fully transparent (0.0) to fully opaque (1.0).
-type Alpha Clampf
+type Alpha Float

@@ -36,6 +36,6 @@ const (
 */
 func (rc *Context) SetClearColor(c Color) {
     defer rc.handleErrors()
-    C.glClearColor(C.GLclampf(c.Red), C.GLclampf(c.Green), C.GLclampf(c.Blue), C.GLclampf(c.Alpha))
+    C.glClearColor(C.GLfloat(c.Red), C.GLfloat(c.Green), C.GLfloat(c.Blue), C.GLfloat(c.Alpha))
     rc.ClearColor = c
 }
