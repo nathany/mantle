@@ -17,8 +17,8 @@ func init() {
     rc = gl.NewContext(gfx.ErrorHandler)
 }
 
-// GLBatch﻿  triangleBatch
-// GLShaderManager﻿  shaderManager
+// GLBatchh triangleBatch
+// GLShaderManager shaderManager
 
 // setup rendering context
 func setupRC() {
