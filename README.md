@@ -2,7 +2,7 @@
 
 Mantle is an idiomatic [Go](http://golang.org/) wrapper for OpenGL 3.2 Core Profile on OS X.
 
-|**Notice**|
+|:**Notice**|
 |----------|
 |This was a summer experiment to learn OpenGL. Please see [Go-GL](https://github.com/go-gl) for all your OpenGL Go needs.|
 
