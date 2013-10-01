@@ -1,4 +1,4 @@
-# Mantle (WIP)
+# Mantle
 
 Mantle is an idiomatic [Go](http://golang.org/) wrapper for OpenGL 3.2 Core Profile on OS X.
 
